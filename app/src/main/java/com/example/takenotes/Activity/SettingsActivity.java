@@ -1,8 +1,10 @@
-package com.example.takenotes;
+package com.example.takenotes.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.takenotes.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
