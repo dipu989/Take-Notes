@@ -15,7 +15,8 @@
         <activity android:name=".Activity.NewNoteActivity" />
         <activity android:name=".Activity.SettingsActivity" />
         <activity android:name=".Activity.SplashActivity" />
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
