@@ -1,14 +1,16 @@
-package com.example.takenotes;
+package com.example.takenotes.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class NewNoteActivity extends AppCompatActivity {
+import com.example.takenotes.R;
+
+public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_note);
+        setContentView(R.layout.activity_splash);
     }
 }
