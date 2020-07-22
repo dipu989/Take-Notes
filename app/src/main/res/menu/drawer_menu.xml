@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
-    <item android:title="Item" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/notes"
+            android:icon="@drawable/ic_event_note_black_24dp"
+            android:title="Notes" />
+
+        <item
+            android:id="@+id/trash"
+            android:icon="@drawable/ic_delete_black_24dp"
+            android:title="Trash" />
+
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Settings" />
+
+        <item
+            android:id="@+id/rateUs"
+            android:icon="@drawable/ic_star_black_24dp"
+            android:title="Rate Us" />
+    </group>
 </menu>
