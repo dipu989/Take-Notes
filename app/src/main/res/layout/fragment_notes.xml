@@ -13,4 +13,17 @@
         android:layout_centerVertical="true"
         ></TextView>
 
+    <Button
+        android:id="@+id/new_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="addNote"
+        android:background="@drawable/round_button">
+    </Button>
+
+
 </RelativeLayout>
