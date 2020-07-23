@@ -6,11 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".Activity.NewNoteActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        >
+
     <EditText
         android:id="@+id/note_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:hint="Title"
         android:textColor="#47423d"
@@ -25,17 +31,19 @@
         android:hint="Note here..."></EditText>
 
 
-    <RelativeLayout
+      <RelativeLayout
         android:id="@+id/layout_footer"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <Button
                 android:id="@+id/share_note"
@@ -49,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
+                android:onClick="viewData"
                 android:background="@drawable/ic_add_a_photo_black_24dp"></Button>
 
             <Button
@@ -59,7 +68,9 @@
                 android:background="@drawable/ic_save_black_24dp"
                 android:onClick="saveNote"></Button>
 
-        </LinearLayout>
+         </LinearLayout>
+
+    </RelativeLayout>
 
     </RelativeLayout>
 
