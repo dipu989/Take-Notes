@@ -1,7 +1,9 @@
 package com.example.takenotes.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.takenotes.R;
+import com.example.takenotes.Utils.DatabaseUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,7 +26,10 @@ import butterknife.OnClick;
 public class NewNoteActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.note_title)
+    DatabaseUtil myDb;
+
+    EditText noteTitle, noteBody;
+     /*@BindView(R.id.note_title)
     EditText noteTitle;
 
     @BindView(R.id.note_body)
@@ -31,11 +37,9 @@ public class NewNoteActivity extends AppCompatActivity {
 
     @BindView(R.id.save_note)
     Button saveNote;
+   */
 
-    String fileName = "Note1.txt";
-
-    File notesStorage;
-
+    private Button saveBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,23 +47,20 @@ public class NewNoteActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        initializeDirectory();
+        saveBtn = findViewById(R.id.save_note);
+        noteTitle = findViewById(R.id.note_title);
+        noteBody = findViewById(R.id.note_body);
+        myDb = new DatabaseUtil(this);
+
     }
 
-    @OnClick(R.id.note_title)
+    /*@OnClick(R.id.note_title)
     public void setTitle(View view){
         noteTitle.setText("");
     }
 
-    public void initializeDirectory() {
-        notesStorage = new File(Environment.getExternalStorageDirectory(),"Take-Notes");
-        if(!notesStorage.exists()) {
-            if(!notesStorage.mkdirs()) {
-                Log.d("Failed"," to create a directory");
-            }
-        }
+     */
 
-    }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -68,23 +69,38 @@ public class NewNoteActivity extends AppCompatActivity {
 
     public void saveNote(View view) {
 
-        File file = new File(notesStorage,noteTitle.toString());
-        FileOutputStream stream;
-        try{
-            stream = new FileOutputStream(file);
-            stream.write(noteBody.getText().toString().getBytes());
-            stream.close();
-            /*OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(fileName,0));
-            outputStreamWriter.write(noteBody.getText().toString());
-            outputStreamWriter.close();
-             */
-            Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show();
-        } catch (Throwable t) {
-            Toast.makeText(this, "Exception: " + toString(), Toast.LENGTH_SHORT).show();
+        boolean isInserted = myDb.insertData(noteTitle.getText().toString(), noteBody.getText().toString());
+        if(isInserted == true){
+            Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show();
+        } else{
+            Toast.makeText(this,"Failed", Toast.LENGTH_SHORT).show();
         }
-        finally {
-           // stream.close();
+        noteTitle.setText("");
+        noteBody.setText("");
+    }
+
+    public void viewData(View view) {
+        Cursor res = myDb.getAllData();
+        if(res.getCount() == 0) {
+            showMessage("Error","Nothing found");
+            return;
         }
+        StringBuffer buffer = new StringBuffer();
+        while(res.moveToNext()) {
+            buffer.append("ID :" + res.getString(0) + "\n");
+            buffer.append("Title :" + res.getString(1) + "\n");
+            buffer.append("Body :" + res.getString(2) + "\n\n");
+        }
+        showMessage("Data",buffer.toString());
+    }
+
+    public void showMessage(String title, String message) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
 
     }
 
