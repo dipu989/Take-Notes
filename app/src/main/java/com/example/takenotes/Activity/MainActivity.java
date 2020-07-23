@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,17 +33,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Button btnNewNote;
 
     private DrawerLayout drawerLayout;
+    private Button newNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.setDebug(true);
-        ButterKnife.bind(this);
+        //ButterKnife.setDebug(true);
+        //ButterKnife.bind(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
+        newNote = findViewById(R.id.new_note);
         setSupportActionBar(toolbar);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -56,14 +59,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new NotesFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_notes);
         }
+
+        Log.i("Hey","there");
     }
 
-    //  @OnClick(R.id.new_note)
-    // public void addNote(View view) {
-    //   Intent intent = new Intent(this, NewNoteActivity.class);
-    //  startActivity(intent);
-    // }
-
+    public void addNote(View view) {
+        Intent intent = new Intent(this, NewNoteActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onBackPressed() {
