@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.takenotes.Model.Note;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseUtil extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "student.db";
@@ -15,6 +20,7 @@ public class DatabaseUtil extends SQLiteOpenHelper {
     public static final String COL_1 = "ID";
     public static final String COL_2 = "TITLE";
     public static final String COL_3 = "BODY";
+    private static final String[] args = {COL_1, COL_2, COL_3};
 
     public DatabaseUtil(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -43,9 +49,34 @@ public class DatabaseUtil extends SQLiteOpenHelper {
         return true;
     }
 
+    public void deleteAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_NAME);
+    }
+
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("Select * from " + TABLE_NAME, null);
         return res;
     }
+
+    public List<Note> getAllNotes() {
+        List<Note> allNotes = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, args,null,null,null,null, null);
+        if(cursor!=null && cursor.moveToFirst()) {
+            do{
+                Note note = new Note();
+                note.setId(Integer.parseInt(cursor.getString(0)));
+                note.setNoteTitle(cursor.getString(1));
+                note.setNoteBody(cursor.getString(2));
+
+                allNotes.add(note);
+            }while(cursor.moveToNext());
+        }
+        db.close();
+        return allNotes;
+    }
+
 }

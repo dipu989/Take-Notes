@@ -3,12 +3,24 @@ package com.example.takenotes.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
+
+import com.example.takenotes.Adapter.NoteAdapter;
+import com.example.takenotes.Model.Note;
 import com.example.takenotes.R;
+import com.example.takenotes.Utils.DatabaseUtil;
+
+import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +36,9 @@ public class NotesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RecyclerView.Adapter adapter;
+    List<Note> notessss;
 
     public NotesFragment() {
         // Required empty public constructor
@@ -59,6 +74,22 @@ public class NotesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_notes,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_notes, container, false);
+
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_notes);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+        DatabaseUtil db = new DatabaseUtil(rootView.getContext());
+        notessss = db.getAllNotes();
+
+        Log.d(TAG, "Notes size is " + notessss.size());
+
+        if (notessss.size() != 0) {
+            adapter = new NoteAdapter(rootView.getContext(), notessss);
+            adapter.notifyDataSetChanged();
+            recyclerView.setAdapter(adapter);
+        }
+
+        return rootView;
     }
 }
