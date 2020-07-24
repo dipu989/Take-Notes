@@ -29,7 +29,6 @@
             android:layout_marginTop="10dp"
             android:hint="Note here..."></EditText>
 
-
         <RelativeLayout
             android:id="@+id/layout_footer"
             android:layout_width="match_parent"
