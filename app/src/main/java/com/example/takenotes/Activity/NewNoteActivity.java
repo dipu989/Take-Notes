@@ -3,6 +3,7 @@ package com.example.takenotes.Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,9 +26,7 @@ import butterknife.OnClick;
 
 public class NewNoteActivity extends AppCompatActivity {
 
-
     DatabaseUtil myDb;
-
     EditText noteTitle, noteBody;
      /*@BindView(R.id.note_title)
     EditText noteTitle;
@@ -40,6 +39,7 @@ public class NewNoteActivity extends AppCompatActivity {
    */
 
     private Button saveBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,14 +51,12 @@ public class NewNoteActivity extends AppCompatActivity {
         noteTitle = findViewById(R.id.note_title);
         noteBody = findViewById(R.id.note_body);
         myDb = new DatabaseUtil(this);
-
     }
 
     /*@OnClick(R.id.note_title)
     public void setTitle(View view){
         noteTitle.setText("");
     }
-
      */
 
     @Override
@@ -68,30 +66,39 @@ public class NewNoteActivity extends AppCompatActivity {
     }
 
     public void saveNote(View view) {
-
         boolean isInserted = myDb.insertData(noteTitle.getText().toString(), noteBody.getText().toString());
-        if(isInserted == true){
+        if (isInserted == true) {
             Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show();
-        } else{
-            Toast.makeText(this,"Failed", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
         }
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
         noteTitle.setText("");
         noteBody.setText("");
+
+    }
+
+    public void deleteNotes(View view) {
+        myDb.deleteAll();
+        Toast.makeText(this, "Notes Deleted", Toast.LENGTH_SHORT).show();
     }
 
     public void viewData(View view) {
         Cursor res = myDb.getAllData();
-        if(res.getCount() == 0) {
-            showMessage("Error","Nothing found");
+        if (res.getCount() == 0) {
+            showMessage("Error", "Nothing found");
             return;
         }
         StringBuffer buffer = new StringBuffer();
-        while(res.moveToNext()) {
+        while (res.moveToNext()) {
             buffer.append("ID :" + res.getString(0) + "\n");
             buffer.append("Title :" + res.getString(1) + "\n");
             buffer.append("Body :" + res.getString(2) + "\n\n");
         }
-        showMessage("Data",buffer.toString());
+        showMessage("Data", buffer.toString());
     }
 
     public void showMessage(String title, String message) {
