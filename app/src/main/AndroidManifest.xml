@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.DisplayNoteActivity"></activity>
         <activity android:name=".Activity.TrashActivity" />
-        <activity android:name=".Activity.NewNoteActivity" />
+        <activity android:name=".Activity.NewNoteActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".Activity.SettingsActivity" />
         <activity android:name=".Activity.SplashActivity" />
         <activity
