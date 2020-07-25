@@ -1,9 +1,7 @@
 package com.example.takenotes.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.takenotes.Activity.DisplayNoteActivity;
@@ -33,13 +30,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     List<Note> noteList = new ArrayList<>();
     private boolean multiSelect = false;
     private List<Note> selectedNotes = new ArrayList<Note>();
-    private Activity job;
     DatabaseUtil myDb;
 
-    public NoteAdapter(Context context, List<Note> noteList, Activity job) {
+    public NoteAdapter(Context context, List<Note> noteList) {
         this.context = context;
         this.noteList = noteList;
-        this.job = job;
     }
 
     @NonNull
@@ -136,7 +131,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                 myDb.deleteRecord(selectedNotes);
                 noteList.removeAll(selectedNotes);
                 notifyDataSetChanged();
-                Toast.makeText(context, "Notes Deleted and current size is " + noteList.size(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Notes Deleted", Toast.LENGTH_SHORT).show();
                 mode.finish();
             }
             return true;

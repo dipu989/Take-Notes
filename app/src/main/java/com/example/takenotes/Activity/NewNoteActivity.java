@@ -6,19 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.takenotes.R;
 import com.example.takenotes.Utils.DatabaseUtil;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +32,9 @@ public class NewNoteActivity extends AppCompatActivity {
     Button saveNote;
    */
 
-    private Button saveBtn;
+    private String title, body;
+
+    private FloatingActionButton saveBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +46,8 @@ public class NewNoteActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.save_note);
         noteTitle = findViewById(R.id.note_title);
         noteBody = findViewById(R.id.note_body);
+        title = noteTitle.getText().toString();
+        body = noteBody.getText().toString();
         myDb = new DatabaseUtil(this);
     }
 
@@ -74,11 +72,33 @@ public class NewNoteActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
         noteTitle.setText("");
         noteBody.setText("");
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (!(noteTitle.getText().toString().matches("") && noteBody.getText().toString().matches(""))) {
+            saveNote(noteTitle.getText().toString(), noteBody.getText().toString());
+        }
+    }
+
+    public void saveNote(String title, String body) {
+        boolean isInserted = myDb.insertData(title, body);
+        if (isInserted == true) {
+            Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void deleteNotes(View view) {
@@ -102,13 +122,11 @@ public class NewNoteActivity extends AppCompatActivity {
     }
 
     public void showMessage(String title, String message) {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle(title);
         builder.setMessage(message);
         builder.show();
-
     }
 
 }

@@ -40,8 +40,8 @@ public class NotesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    RecyclerView.Adapter adapter;
-    List<Note> notessss;
+    private RecyclerView.Adapter adapter;
+    private List<Note> notes;
 
     public NotesFragment() {
         // Required empty public constructor
@@ -83,10 +83,10 @@ public class NotesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         DatabaseUtil db = new DatabaseUtil(rootView.getContext());
-        notessss = db.getAllNotes();
+        notes = db.getAllNotes();
 
-        if (notessss.size() != 0) {
-            adapter = new NoteAdapter(rootView.getContext(), notessss, ((MainActivity)this.getActivity()));
+        if (notes.size() != 0) {
+            adapter = new NoteAdapter(rootView.getContext(), notes);
             adapter.notifyDataSetChanged();
             recyclerView.setAdapter(adapter);
         }

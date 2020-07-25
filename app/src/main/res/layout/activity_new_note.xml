@@ -4,22 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.NewNoteActivity">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:orientation="vertical">
+    tools:context=".Activity.NewNoteActivity"
+    android:layout_margin="10dp">
 
         <EditText
             android:id="@+id/note_title"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="Title"
             android:textColor="#47423d"
-            android:textSize="20dp"></EditText>
+            android:textSize="20dp"
+            android:background="@null"
+            android:textCursorDrawable="@drawable/color_cursor"></EditText>
 
         <EditText
             android:id="@+id/note_body"
@@ -27,9 +24,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/note_title"
             android:layout_marginTop="10dp"
-            android:hint="Note here..."></EditText>
+            android:hint="Note here..."
+            android:background="@null"
+            android:textCursorDrawable="@drawable/color_cursor"></EditText>
 
-        <RelativeLayout
+       <!-- <RelativeLayout
             android:id="@+id/layout_footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,8 +66,18 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </RelativeLayout> -->
 
-    </RelativeLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/save_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_check_white_24dp"
+            android:onClick="saveNote"
+            android:backgroundTint="@color/red">
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </RelativeLayout>
