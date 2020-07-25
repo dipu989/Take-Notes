@@ -6,27 +6,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.takenotes.Adapter.NoteAdapter;
 import com.example.takenotes.Fragment.NotesFragment;
 import com.example.takenotes.Fragment.SettingsFragment;
 import com.example.takenotes.Fragment.TrashFragment;
-import com.example.takenotes.Model.Note;
 import com.example.takenotes.R;
-import com.example.takenotes.Utils.DatabaseUtil;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,10 +35,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawerLayout;
     private Button newNote;
-
-    RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
-    List<Note> notesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
