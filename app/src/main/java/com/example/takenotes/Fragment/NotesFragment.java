@@ -1,7 +1,9 @@
 package com.example.takenotes.Fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 
+import com.example.takenotes.Activity.MainActivity;
 import com.example.takenotes.Adapter.NoteAdapter;
 import com.example.takenotes.Model.Note;
 import com.example.takenotes.R;
@@ -82,14 +85,13 @@ public class NotesFragment extends Fragment {
         DatabaseUtil db = new DatabaseUtil(rootView.getContext());
         notessss = db.getAllNotes();
 
-        Log.d(TAG, "Notes size is " + notessss.size());
-
         if (notessss.size() != 0) {
-            adapter = new NoteAdapter(rootView.getContext(), notessss);
+            adapter = new NoteAdapter(rootView.getContext(), notessss, ((MainActivity)this.getActivity()));
             adapter.notifyDataSetChanged();
             recyclerView.setAdapter(adapter);
         }
 
         return rootView;
     }
+
 }

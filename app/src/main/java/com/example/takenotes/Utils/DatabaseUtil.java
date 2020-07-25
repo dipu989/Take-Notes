@@ -42,7 +42,7 @@ public class DatabaseUtil extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, title);
         contentValues.put(COL_3, body);
-        long result = db.insert(TABLE_NAME, null, contentValues);
+         long result = db.insert(TABLE_NAME, null, contentValues);
 
         if (result == -1)
             return false;
@@ -77,6 +77,14 @@ public class DatabaseUtil extends SQLiteOpenHelper {
         }
         db.close();
         return allNotes;
+    }
+
+    public void deleteRecord(List<Note> selectedNotes) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        for(int i = 0; i<selectedNotes.size(); i++) {
+            db.delete(TABLE_NAME, "ID='" + selectedNotes.get(i).getId() + "'", null);
+        }
+        db.close();
     }
 
 }
