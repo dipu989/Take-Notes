@@ -62,11 +62,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             public boolean onLongClick(View v) {
                 if (!multiSelect) {
                     multiSelect = true;
-                    ((AppCompatActivity)v.getContext()).startSupportActionMode(actionModeCallback);
+                    ((AppCompatActivity) v.getContext()).startSupportActionMode(actionModeCallback);
                     selectItem(holder, note);
                     return true;
-                }
-                else
+                } else
                     return false;
             }
         });

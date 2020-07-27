@@ -87,4 +87,25 @@ public class DatabaseUtil extends SQLiteOpenHelper {
         db.close();
     }
 
+    public List<Note> search(String keyword) {
+        List<Note> foundNotes = null;
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            Cursor cursor = db.rawQuery("select * from " + TABLE_NAME + " where " + COL_3 + " like ?", new String[] { "%" + keyword + "%"});
+            if(cursor.moveToFirst()) {
+                foundNotes = new ArrayList<Note>();
+                do{
+                    Note note = new Note();
+                    note.setId(cursor.getInt(0));
+                    note.setNoteTitle(cursor.getString(1));
+                    note.setNoteBody(cursor.getString(2));
+                    foundNotes.add(note);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e){
+            foundNotes = null;
+        }
+        return foundNotes;
+    }
+
 }
