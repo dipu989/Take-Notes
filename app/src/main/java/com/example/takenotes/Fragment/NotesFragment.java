@@ -1,21 +1,20 @@
 package com.example.takenotes.Fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.SearchView;
 
-
-import com.example.takenotes.Activity.MainActivity;
 import com.example.takenotes.Adapter.NoteAdapter;
 import com.example.takenotes.Model.Note;
 import com.example.takenotes.R;
@@ -23,14 +22,12 @@ import com.example.takenotes.Utils.DatabaseUtil;
 
 import java.util.List;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NotesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotesFragment extends Fragment {
+public class NotesFragment extends Fragment implements SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,6 +39,11 @@ public class NotesFragment extends Fragment {
 
     private RecyclerView.Adapter adapter;
     private List<Note> notes;
+    androidx.appcompat.widget.Toolbar toolbar;
+    RecyclerView recyclerView;
+    private View rootView;
+    private DatabaseUtil db;
+    // NoteAdapter noteAdapter;
 
     public NotesFragment() {
         // Required empty public constructor
@@ -77,21 +79,71 @@ public class NotesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_notes, container, false);
+        rootView = inflater.inflate(R.layout.fragment_notes, container, false);
 
-        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_notes);
+        recyclerView = rootView.findViewById(R.id.recycler_view_notes);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        DatabaseUtil db = new DatabaseUtil(rootView.getContext());
+        db = new DatabaseUtil(rootView.getContext());
         notes = db.getAllNotes();
+        setHasOptionsMenu(true);
 
         if (notes.size() != 0) {
             adapter = new NoteAdapter(rootView.getContext(), notes);
             adapter.notifyDataSetChanged();
             recyclerView.setAdapter(adapter);
         }
-
         return rootView;
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        menu.clear();
+        inflater.inflate(R.menu.search_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.search_menu_toolbar);
+        MenuItemCompat.setShowAsAction(searchItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS | MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(this);
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem item) {
+        adapter = new NoteAdapter(rootView.getContext(), notes);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        if (newText == null || newText.trim().isEmpty()) {
+            adapter = new NoteAdapter(rootView.getContext(), notes);
+            adapter.notifyDataSetChanged();
+            recyclerView.setAdapter(adapter);
+            return true;
+        }
+        List<Note> foundNotes = db.search(newText);
+        if (foundNotes != null) {
+            adapter = new NoteAdapter(rootView.getContext(), foundNotes);
+            adapter.notifyDataSetChanged();
+            recyclerView.setAdapter(adapter);
+            return true;
+        }
+        return false;
     }
 
 }
