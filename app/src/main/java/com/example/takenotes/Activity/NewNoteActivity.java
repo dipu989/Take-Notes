@@ -64,11 +64,16 @@ public class NewNoteActivity extends AppCompatActivity {
     }
 
     public void saveNote(View view) {
-        boolean isInserted = myDb.insertData(noteTitle.getText().toString(), noteBody.getText().toString());
-        if (isInserted == true) {
-            Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show();
+
+        if(noteTitle.getText().toString().matches("") && noteBody.getText().toString().matches("")){
+            Toast.makeText(this,"Empty note discarded", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+            boolean isInserted = myDb.insertData(noteTitle.getText().toString(), noteBody.getText().toString());
+            if (isInserted == true) {
+                Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+            }
         }
 
         Intent intent = new Intent(this, MainActivity.class);
