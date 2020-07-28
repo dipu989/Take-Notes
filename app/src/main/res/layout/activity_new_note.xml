@@ -4,20 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.NewNoteActivity"
-    android:layout_margin="10dp">
+    tools:context=".Activity.NewNoteActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/new_note_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:fitsSystemWindows="true"></androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/new_note_toolbar"
+        android:orientation="vertical"
+        android:layout_margin="8dp">
 
         <EditText
             android:id="@+id/note_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@null"
             android:hint="Title"
             android:textColor="#47423d"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="20dp"
-            android:background="@null"
-            android:textStyle="bold"
-            android:textCursorDrawable="@drawable/color_cursor"></EditText>
+            android:textStyle="bold"></EditText>
 
         <EditText
             android:id="@+id/note_body"
@@ -25,59 +39,61 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/note_title"
             android:layout_marginTop="10dp"
-            android:hint="Note here..."
             android:background="@null"
+            android:hint="Note here..."
             android:textCursorDrawable="@drawable/color_cursor"></EditText>
 
-       <!-- <RelativeLayout
-            android:id="@+id/layout_footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+    <!-- <RelativeLayout
+         android:id="@+id/layout_footer"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/share_note"
-                    android:layout_width="24dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_share_black_24dp"
-                    android:onClick="deleteNotes"></Button>
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/add_multimedia"
-                    android:layout_width="24dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_add_a_photo_black_24dp"
-                    android:onClick="viewData"></Button>
+             <Button
+                 android:id="@+id/share_note"
+                 android:layout_width="24dp"
+                 android:layout_height="50dp"
+                 android:layout_weight="1"
+                 android:background="@drawable/ic_share_black_24dp"
+                 android:onClick="deleteNotes"></Button>
 
-                <Button
-                    android:id="@+id/save_note"
-                    android:layout_width="24dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_save_black_24dp"
-                    android:onClick="saveNote"></Button>
+             <Button
+                 android:id="@+id/add_multimedia"
+                 android:layout_width="24dp"
+                 android:layout_height="50dp"
+                 android:layout_weight="1"
+                 android:background="@drawable/ic_add_a_photo_black_24dp"
+                 android:onClick="viewData"></Button>
 
-            </LinearLayout>
+             <Button
+                 android:id="@+id/save_note"
+                 android:layout_width="24dp"
+                 android:layout_height="50dp"
+                 android:layout_weight="1"
+                 android:background="@drawable/ic_save_black_24dp"
+                 android:onClick="saveNote"></Button>
 
-        </RelativeLayout> -->
+         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/save_note"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="16dp"
-            android:onClick="saveNote"
-            android:src="@drawable/ic_check_white_24dp"
-            app:backgroundTint="@color/buttonColor"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+     </RelativeLayout> -->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:onClick="saveNote"
+        android:src="@drawable/ic_check_white_24dp"
+        app:backgroundTint="@color/buttonColor"></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </RelativeLayout>
