@@ -1,5 +1,6 @@
 package com.example.takenotes.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.core.view.MenuItemCompat;
@@ -13,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.example.takenotes.Adapter.NoteAdapter;
