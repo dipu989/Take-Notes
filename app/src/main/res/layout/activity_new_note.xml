@@ -78,6 +78,6 @@
             android:layout_margin="16dp"
             android:onClick="saveNote"
             android:src="@drawable/ic_check_white_24dp"
-            app:backgroundTint="@color/red"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+            app:backgroundTint="@color/buttonColor"></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </RelativeLayout>
