@@ -2,11 +2,15 @@ package com.example.takenotes.Activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,6 +26,8 @@ public class NewNoteActivity extends AppCompatActivity {
 
     DatabaseUtil myDb;
     EditText noteTitle, noteBody;
+    Toolbar toolbar;
+    Window window;
      /*@BindView(R.id.note_title)
     EditText noteTitle;
 
@@ -41,6 +47,14 @@ public class NewNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_note);
         ButterKnife.bind(this);
+
+        toolbar = (Toolbar) findViewById(R.id.new_note_toolbar);
+        setSupportActionBar(toolbar);
+
+        window = NewNoteActivity.this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(ContextCompat.getColor(NewNoteActivity.this, R.color.buttonColor));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         saveBtn = findViewById(R.id.save_note);
