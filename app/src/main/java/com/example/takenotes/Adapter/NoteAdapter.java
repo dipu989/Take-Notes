@@ -83,6 +83,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         holder.title.setText(noteList.get(position).getNoteTitle());
         holder.body.setText(noteList.get(position).getNoteBody());
+        holder.id.setText(Integer.toString(noteList.get(position).getId()));
 
     }
 
@@ -90,6 +91,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         Intent intent = new Intent(context, DisplayNoteActivity.class);
         intent.putExtra("Title", holder.title.getText().toString());
         intent.putExtra("Body", holder.body.getText().toString());
+        intent.putExtra("ID",holder.id.getText().toString());
         context.startActivity(intent);
     }
 
@@ -148,11 +150,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     public class NoteViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, body;
+        TextView id, title, body;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            id = itemView.findViewById(R.id.rvnoteId);
             title = itemView.findViewById(R.id.rvnoteTitle);
             body = itemView.findViewById(R.id.rvnoteText);
         }
