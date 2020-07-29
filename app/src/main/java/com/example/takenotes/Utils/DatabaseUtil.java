@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -12,6 +13,8 @@ import com.example.takenotes.Model.Note;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class DatabaseUtil extends SQLiteOpenHelper {
 
@@ -107,5 +110,35 @@ public class DatabaseUtil extends SQLiteOpenHelper {
         }
         return foundNotes;
     }
+
+    public boolean update(String id, String title) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        String strFilter = "ID=" + id;
+        contentValues.put("TITLE", title);
+        db.update(TABLE_NAME, contentValues,strFilter,null);
+        db.close();
+        return true;
+    }
+
+    public boolean update(String id, String title, String body) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        String strFilter = "ID=" + id;
+        contentValues.put("TITLE",title);
+        contentValues.put("BODY",body);
+        db.update(TABLE_NAME,contentValues,strFilter,null);
+        db.close();
+        return true;
+    }
+
+    /*@Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+        db.execSQL("drop table if exists " + TABLE_NAME);
+        onCreate(db);
+    }
+     */
 
 }
