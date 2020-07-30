@@ -2,6 +2,7 @@ package com.example.takenotes.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,8 @@ import com.example.takenotes.Utils.DatabaseUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
@@ -84,6 +87,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.title.setText(noteList.get(position).getNoteTitle());
         holder.body.setText(noteList.get(position).getNoteBody());
         holder.id.setText(Integer.toString(noteList.get(position).getId()));
+
+        unselectData(holder);
 
     }
 
@@ -147,6 +152,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         }
     };
+
+    public void unselectData(NoteViewHolder holder) {
+            holder.itemView.findViewById(R.id.cardLayout).setAlpha(1.0f);
+    }
 
     public class NoteViewHolder extends RecyclerView.ViewHolder {
 
