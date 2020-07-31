@@ -7,12 +7,13 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 
-public class ExternalStorageUtil {
+public class PDFUtil {
 
-   /* File notesStorage;
+    File notesStorage;
 
-    public void saveNote(View view) {
+   /* public void saveNote(View view) {
 
         File file = new File(notesStorage,noteTitle.toString());
         FileOutputStream stream;
@@ -20,7 +21,7 @@ public class ExternalStorageUtil {
             stream = new FileOutputStream(file);
             stream.write(noteBody.getText().toString().getBytes());
             stream.close();
-            /*OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(fileName,0));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(fileName,0));
             outputStreamWriter.write(noteBody.getText().toString());
             outputStreamWriter.close();
 
@@ -32,10 +33,10 @@ public class ExternalStorageUtil {
             // stream.close();
         }
 
-    }
+    }*/
 
-    public void initializeDirectory() {
-        notesStorage = new File(Environment.getExternalStorageDirectory(),"Take-Notes");
+    /*public void initializeDirectory() {
+        notesStorage = new File(getExternalFilesDir(),"Take-Notes");
         if(!notesStorage.exists()) {
             if(!notesStorage.mkdirs()) {
                 Log.d("Failed"," to create a directory");
@@ -43,5 +44,6 @@ public class ExternalStorageUtil {
         }
 
     }
-    */
+     */
+
 }
