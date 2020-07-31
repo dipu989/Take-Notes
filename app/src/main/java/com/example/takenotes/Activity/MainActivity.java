@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import com.example.takenotes.Fragment.NotesFragment;
 import com.example.takenotes.Fragment.SettingsFragment;
 import com.example.takenotes.Fragment.TrashFragment;
 import com.example.takenotes.R;
+import com.example.takenotes.Utils.PDFUtil;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new NotesFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_notes);
         }
+        initDirectory();
     }
 
     public void addNote(View view) {
@@ -100,5 +103,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void initDirectory() {
+        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath();
+        Log.i("External files dir is ", fileDirectory);
     }
 }

@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.example.takenotes"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -65,6 +65,7 @@ dependencies {
 
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+    implementation 'com.itextpdf:itextpdf:5.5.13.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
