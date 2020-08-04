@@ -41,10 +41,10 @@ import butterknife.OnClick;
 
 public class NewNoteActivity extends AppCompatActivity {
 
-    DatabaseUtil myDb;
-    EditText noteTitle, noteBody;
-    Toolbar toolbar;
-    Window window;
+    private DatabaseUtil myDb;
+    private EditText noteTitle, noteBody;
+    private Toolbar toolbar;
+    private Window window;
      /*@BindView(R.id.note_title)
     EditText noteTitle;
 
@@ -54,8 +54,6 @@ public class NewNoteActivity extends AppCompatActivity {
     @BindView(R.id.save_note)
     Button saveNote;
    */
-
-    private String title, body;
 
     private FloatingActionButton saveBtn;
 
@@ -77,8 +75,6 @@ public class NewNoteActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.save_note);
         noteTitle = findViewById(R.id.note_title);
         noteBody = findViewById(R.id.note_body);
-        title = noteTitle.getText().toString();
-        body = noteBody.getText().toString();
         myDb = new DatabaseUtil(this);
     }
 
@@ -96,14 +92,17 @@ public class NewNoteActivity extends AppCompatActivity {
 
     public void saveNote(View view) {
 
-        if(noteTitle.getText().toString().matches("") && noteBody.getText().toString().matches("")){
-            Toast.makeText(this,"Empty note discarded", Toast.LENGTH_SHORT).show();
+        String title = noteTitle.getText().toString();
+        String body = noteBody.getText().toString();
+
+        if(title.matches("") && body.matches("")){
+            Toast.makeText(this,R.string.empty_note, Toast.LENGTH_SHORT).show();
         } else {
-            boolean isInserted = myDb.insertData(noteTitle.getText().toString(), noteBody.getText().toString());
+            boolean isInserted = myDb.insertData(title.trim(), body.trim());
             if (isInserted == true) {
-                Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.note_add_success, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.note_add_failed, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -119,21 +118,24 @@ public class NewNoteActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (!(noteTitle.getText().toString().matches("") && noteBody.getText().toString().matches(""))) {
-            saveNote(noteTitle.getText().toString(), noteBody.getText().toString());
+        String title = noteTitle.getText().toString();
+        String body = noteBody.getText().toString();
+
+        if (!(title.matches("") && body.matches(""))) {
+            saveNote(title.trim(), body.trim());
         }
     }
 
     public void saveNote(String title, String body) {
         boolean isInserted = myDb.insertData(title, body);
         if (isInserted == true) {
-            Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.note_add_success, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         } else {
-            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.note_add_failed, Toast.LENGTH_SHORT).show();
         }
     }
 

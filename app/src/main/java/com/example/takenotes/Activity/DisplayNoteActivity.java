@@ -89,8 +89,8 @@ public class DisplayNoteActivity extends AppCompatActivity {
     public void editNote(View view) {
 
         String id = displayId.getText().toString();
-        String title = displayTitle.getText().toString();
-        String body = displayBody.getText().toString();
+        String title = displayTitle.getText().toString().trim();
+        String body = displayBody.getText().toString().trim();
 
         boolean isUpdated = myDb.update(id, title, body);
 
