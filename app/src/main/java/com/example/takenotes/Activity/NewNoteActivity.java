@@ -208,10 +208,11 @@ public class NewNoteActivity extends AppCompatActivity {
     }
     public void sharePdf(PdfDocument pdfDocument) {
 
-        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath();
+        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
 
         String targetPdf = fileDirectory + noteTitle.getText().toString().trim() + ".pdf";
         File filePath = new File(targetPdf);
+
         try {
 
             pdfDocument.writeTo(new FileOutputStream(filePath));

@@ -24,6 +24,8 @@ import com.example.takenotes.Utils.PDFUtil;
 import com.google.android.material.navigation.NavigationView;
 
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -107,6 +109,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void initDirectory() {
         String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath();
+//        String share_dir = fileDirectory + "/share";
+//        File file = new File(share_dir);
+//        if(!file.exists()){
+//            file.mkdir();
+//        }
         Log.i("External files dir is ", fileDirectory);
     }
 }
