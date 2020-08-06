@@ -80,6 +80,7 @@ public class NewNoteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         saveBtn = findViewById(R.id.save_note);
         noteTitle = findViewById(R.id.note_title);
+        noteTitle.requestFocus();
         noteBody = findViewById(R.id.note_body);
         myDb = new DatabaseUtil(this);
     }
