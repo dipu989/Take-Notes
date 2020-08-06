@@ -6,5 +6,13 @@
     <color name="white">#FFFFFF</color>
     <color name="red">#E80000</color>
     <color name="black">#000000</color>
+    <color name="textColor">#000000</color>
+    <!--<color name="buttonColor">#28A1F7</color> -->
+    <color name="statusBarColor">#28A1F7</color>
+    <color name="toolbarColor">#28A1F7</color>
     <color name="buttonColor">#28A1F7</color>
+    <color name="noteLayoutColor">#fff7d9</color>
+    <color name="iconColor">#000000</color>
+    <color name="new_and_display_bg">#FFFFFF</color>
+    <color name="noteFragmentColor">#FFFFFF</color>
 </resources>

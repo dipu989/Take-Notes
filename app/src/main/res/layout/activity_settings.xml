@@ -6,4 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".Activity.SettingsActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/settings_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:background="@color/toolbarColor"
+        android:fitsSystemWindows="true"></androidx.appcompat.widget.Toolbar>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/settings_activity_toolbar"
+        android:layout_marginTop="8dp"
+        android:layout_margin="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dark Mode"
+            android:textSize="16dp"
+            ></TextView>
+
+        <Switch
+            android:id="@+id/toggle_dark_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_alignParentRight="true">
+        </Switch>
+
+    </RelativeLayout>
+
+
+
 </RelativeLayout>

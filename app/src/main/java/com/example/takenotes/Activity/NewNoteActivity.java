@@ -69,7 +69,7 @@ public class NewNoteActivity extends AppCompatActivity {
         window = NewNoteActivity.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(NewNoteActivity.this, R.color.buttonColor));
+        window.setStatusBarColor(ContextCompat.getColor(NewNoteActivity.this, R.color.statusBarColor));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         saveBtn = findViewById(R.id.save_note);

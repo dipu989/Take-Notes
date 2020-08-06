@@ -4,22 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.NewNoteActivity">
+    tools:context=".Activity.NewNoteActivity"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/new_note_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
-        android:elevation="4dp"
+        android:background="@color/toolbarColor"
+        android:elevation="@dimen/toolbar_elevation"
         android:fitsSystemWindows="true"></androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/new_note_toolbar"
-        android:layout_margin="8dp"
-        android:orientation="vertical">
+        android:backgroundTint="@color/new_and_display_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/new_note_toolbar"
+        android:layout_margin="@dimen/layout_margin_medium"
+        android:orientation="vertical"
+        android:elevation="0dp"
+        android:backgroundTint="@color/new_and_display_bg"
+        >
 
         <EditText
             android:id="@+id/note_title"
@@ -28,7 +38,7 @@
             android:layout_marginTop="10dp"
             android:background="@null"
             android:hint="Title"
-            android:textColor="#47423d"
+            android:textColor="@color/textColor"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="20dp"
             android:textStyle="bold"></EditText>
@@ -40,9 +50,11 @@
             android:layout_below="@+id/note_title"
             android:layout_marginTop="10dp"
             android:background="@null"
+            android:textColor="@color/textColor"
             android:hint="Note here..."
             android:textCursorDrawable="@drawable/color_cursor"></EditText>
 
+    </LinearLayout>
     </LinearLayout>
 
     <!--  <RelativeLayout

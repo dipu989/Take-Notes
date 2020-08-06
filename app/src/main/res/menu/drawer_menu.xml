@@ -11,10 +11,10 @@
             android:icon="@drawable/ic_event_note_black_24dp"
             android:title="Notes" />
 
-        <item
+       <!-- <item
             android:id="@+id/nav_trash"
             android:icon="@drawable/ic_delete_black_24dp"
-            android:title="Trash" />
+            android:title="Trash" /> -->
 
         <item
             android:id="@+id/nav_settings"
