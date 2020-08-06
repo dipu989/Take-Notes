@@ -16,6 +16,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/dark_mode_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -39,6 +40,96 @@
         </Switch>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/offline_backup_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/dark_mode_layout"
+        android:layout_marginTop="8dp"
+        android:layout_margin="12dp"
+        android:padding="3dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="createOfflineBackup">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:textSize="16dp"
+            android:text="Offline Backup">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:text="Data will be saved in your device and can be restored"
+            ></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/retrieve_offline_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/offline_backup_layout"
+        android:layout_marginTop="8dp"
+        android:layout_margin="12dp"
+        android:padding="3dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="loadOfflineData">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:textSize="16dp"
+            android:text="Restore Notes">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:text="Data from Offline backup will be restored (if any)"
+            ></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/online_backup_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/retrieve_offline_data"
+        android:layout_marginTop="8dp"
+        android:layout_margin="12dp"
+        android:padding="3dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:textSize="16dp"
+            android:text="Online Backup">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:text="Data will be saved on Google Cloud and can be restored. Storage limit 25 MB per app"
+            ></TextView>
+    </LinearLayout>
+
 
 
 

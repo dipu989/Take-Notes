@@ -9,14 +9,19 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.example.takenotes.R;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.nio.channels.FileChannel;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -43,14 +48,12 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
-        if(isDarkModeOn){
+        if (isDarkModeOn) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             btn_toggle.setChecked(true);
-           // btn_toggle.setText("Disable Dark Mode");
-        }else{
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             btn_toggle.setChecked(false);
-           // btn_toggle.setText("Enable Dark Mode");
         }
         btn_toggle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,14 +61,74 @@ public class SettingsActivity extends AppCompatActivity {
                 if (isDarkModeOn) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     editor.putBoolean("isDarkModeOn", false);
-                    editor.apply();
-                }else{
+                } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     editor.putBoolean("isDarkModeOn", true);
-                    editor.apply();
                 }
+                editor.apply();
             }
         });
+    }
+
+    public void createOfflineBackup(View view) {
+
+        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/backup";
+        //Log.i("File directory is ", fileDirectory);
+
+        String copyDBPath = "note_backup.db";
+
+        final String realDatabase = this.getDatabasePath("student.db").toString();
+        //Log.i("Database Location is ", realDatabase);
+
+        try {
+            File currentDB = new File(realDatabase);
+            File copyDB = new File(fileDirectory, copyDBPath);
+            if (currentDB.exists()) {
+                if (copyDB.exists()) {
+                    copyDB.delete();
+                }
+                @SuppressWarnings("resource")
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                @SuppressWarnings("resource")
+                FileChannel dst = new FileOutputStream(copyDB).getChannel();
+                dst.transferFrom(src, 0, src.size());
+                Toast.makeText(this, "Backup Created", Toast.LENGTH_SHORT).show();
+                src.close();
+                dst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadOfflineData(View view) {
+        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/backup";
+        // Log.i("File directory is ", fileDirectory);
+
+        final String endLocation = this.getDatabasePath("student.db").toString();
+        // Log.i("Database Location is ", endLocation);
+
+        try {
+            File beginLocation = new File(fileDirectory, "note_backup.db");
+            File endLoc = new File(endLocation);
+
+            //Log.i("It reached here yay!", "Yo");
+            if (beginLocation.exists()) {
+                if (endLoc.exists()) {
+                    endLoc.delete();
+                }
+                @SuppressWarnings("resource")
+                FileChannel src = new FileInputStream(beginLocation).getChannel();
+                @SuppressWarnings("resource")
+                FileChannel dst = new FileOutputStream(endLoc).getChannel();
+                dst.transferFrom(src, 0, src.size());
+                Toast.makeText(this, "Backup Restored", Toast.LENGTH_SHORT).show();
+                src.close();
+                dst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -73,6 +136,5 @@ public class SettingsActivity extends AppCompatActivity {
         Log.i("On back pressed", "not working");
         super.onBackPressed();
     }
-
 
 }

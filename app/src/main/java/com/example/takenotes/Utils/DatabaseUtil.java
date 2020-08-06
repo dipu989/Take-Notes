@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 
@@ -47,6 +48,7 @@ public class DatabaseUtil extends SQLiteOpenHelper {
         contentValues.put(COL_3, body);
          long result = db.insert(TABLE_NAME, null, contentValues);
 
+         db.close();
         if (result == -1)
             return false;
         return true;
@@ -55,11 +57,13 @@ public class DatabaseUtil extends SQLiteOpenHelper {
     public void deleteAll() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_NAME);
+        db.close();
     }
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("Select * from " + TABLE_NAME, null);
+        db.close();
         return res;
     }
 

@@ -58,6 +58,12 @@ public class NewNoteActivity extends AppCompatActivity {
     private FloatingActionButton saveBtn;
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        myDb.close();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_note);

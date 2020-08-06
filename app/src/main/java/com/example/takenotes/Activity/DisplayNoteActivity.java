@@ -49,7 +49,6 @@ public class DisplayNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_note);
-
         displayTitle = findViewById(R.id.display_title);
         displayBody = findViewById(R.id.display_body);
         displayId = findViewById(R.id.display_id);
