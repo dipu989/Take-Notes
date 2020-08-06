@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Layout margins -->
+    <dimen name="layout_margin_medium">10dp</dimen>
+    <dimen name="layout_margin_small">8dp</dimen>
+    <dimen name="layout_margin_large">12dp</dimen>
+
+    <!-- Card Elevations -->
+    <dimen name="note_card_elevation">3dp</dimen>
+    <dimen name="toolbar_elevation">5dp</dimen>
+</resources>

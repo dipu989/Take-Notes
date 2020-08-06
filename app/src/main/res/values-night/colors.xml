@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#28A1F7</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#E80000</color>
+    <color name="black">#000000</color>
+    <color name="textColor">#FFFFFF</color>
+   <!-- <color name="buttonColor">#2ee86c</color> -->
+    <color name="statusBarColor">#000000</color>
+    <color name="toolbarColor">#1f1f1f</color>
+    <color name="buttonColor">#ded51f</color>
+    <color name="noteLayoutColor">#1d1d1d</color>
+    <color name="iconColor">#FFFFFF</color>
+    <color name="new_and_display_bg">#121212</color>
+    <color name="noteFragmentColor">#121212</color>
+</resources>

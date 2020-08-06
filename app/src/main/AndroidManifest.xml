@@ -18,7 +18,8 @@
         <activity android:name=".Activity.NewNoteActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".Activity.SettingsActivity" />
+        <activity android:name=".Activity.SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Activity.SplashActivity" />
         <activity
             android:name=".Activity.MainActivity"
