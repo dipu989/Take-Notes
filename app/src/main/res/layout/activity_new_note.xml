@@ -46,12 +46,13 @@
         <EditText
             android:id="@+id/note_body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/note_title"
             android:layout_marginTop="10dp"
             android:background="@null"
             android:textColor="@color/textColor"
             android:hint="Note here..."
+            android:gravity="top|left"
             android:textCursorDrawable="@drawable/color_cursor"></EditText>
 
     </LinearLayout>

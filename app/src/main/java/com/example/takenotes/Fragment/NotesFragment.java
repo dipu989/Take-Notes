@@ -1,10 +1,14 @@
 package com.example.takenotes.Fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,12 +20,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.example.takenotes.Activity.SettingsActivity;
 import com.example.takenotes.Adapter.NoteAdapter;
 import com.example.takenotes.Model.Note;
 import com.example.takenotes.R;
 import com.example.takenotes.Utils.DatabaseUtil;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.util.List;
 
 /**
@@ -117,6 +127,55 @@ public class NotesFragment extends Fragment implements SearchView.OnQueryTextLis
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.restore_menu_toolbar:
+                loadOfflineData();
+                break;
+            case R.id.settings_menu_toolbar:
+                Intent intent = new Intent(getContext(), SettingsActivity.class);
+                startActivity(intent);
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void loadOfflineData() {
+        String fileDirectory = getContext().getExternalFilesDir(null).getAbsolutePath() + "/backup";
+        // Log.i("File directory is ", fileDirectory);
+
+        final String endLocation = getContext().getDatabasePath("student.db").toString();
+        // Log.i("Database Location is ", endLocation);
+
+        try {
+            File beginLocation = new File(fileDirectory, "note_backup.db");
+            File endLoc = new File(endLocation);
+
+            //Log.i("It reached here yay!", "Yo");
+            if (beginLocation.exists()) {
+                if (endLoc.exists()) {
+                    endLoc.delete();
+                }
+                @SuppressWarnings("resource")
+                FileChannel src = new FileInputStream(beginLocation).getChannel();
+                @SuppressWarnings("resource")
+                FileChannel dst = new FileOutputStream(endLoc).getChannel();
+                dst.transferFrom(src, 0, src.size());
+                Toast.makeText(getContext(), "Backup Restored", Toast.LENGTH_SHORT).show();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                if (Build.VERSION.SDK_INT >= 26) {
+                    fragmentTransaction.setReorderingAllowed(false);
+                }
+                fragmentTransaction.detach(this).attach(this).commit();
+                src.close();
+                dst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
