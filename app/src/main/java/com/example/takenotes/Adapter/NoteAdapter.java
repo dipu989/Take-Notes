@@ -1,7 +1,10 @@
 package com.example.takenotes.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,10 +12,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.recyclerview.widget.RecyclerView;
@@ -96,7 +101,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         Intent intent = new Intent(context, DisplayNoteActivity.class);
         intent.putExtra("Title", holder.title.getText().toString());
         intent.putExtra("Body", holder.body.getText().toString());
-        intent.putExtra("ID",holder.id.getText().toString());
+        intent.putExtra("ID", holder.id.getText().toString());
         context.startActivity(intent);
     }
 
@@ -134,11 +139,35 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             if (item.getItemId() == R.id.action_delete) {
-                myDb.deleteRecord(selectedNotes);
-                noteList.removeAll(selectedNotes);
-                notifyDataSetChanged();
-                Toast.makeText(context, "Notes Deleted", Toast.LENGTH_SHORT).show();
-                mode.finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                if (selectedNotes.size() == 1) {
+                    builder.setTitle("Delete: " + selectedNotes.get(0).getNoteTitle());
+                    builder.setMessage("Are you sure you want to delete this note?");
+                } else {
+                    builder.setTitle("Delete " + selectedNotes.size() + " notes?");
+                    builder.setMessage("Are you sure you want to delete these notes?");
+                }
+
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        myDb.deleteRecord(selectedNotes);
+                        noteList.removeAll(selectedNotes);
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "Notes Deleted", Toast.LENGTH_SHORT).show();
+                        mode.finish();
+                    }
+                })
+                        .setNegativeButton("Cancel", null);
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                Button cancelBtn = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                cancelBtn.setTextColor(Color.rgb(40,161,247));
+                Button okBtn = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                okBtn.setTextColor(Color.rgb(40,161,247));
+                okBtn.setTextColor(Color.rgb(40,161,247));
+                
             }
             return true;
         }
@@ -154,7 +183,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     };
 
     public void unselectData(NoteViewHolder holder) {
-            holder.itemView.findViewById(R.id.cardLayout).setAlpha(1.0f);
+        holder.itemView.findViewById(R.id.cardLayout).setAlpha(1.0f);
     }
 
     public class NoteViewHolder extends RecyclerView.ViewHolder {
