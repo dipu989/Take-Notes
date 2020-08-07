@@ -7,10 +7,10 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -29,16 +29,19 @@ public class SettingsActivity extends AppCompatActivity {
     private Switch btn_toggle;
     private Toolbar toolbar;
     private Window window;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        relativeLayout = findViewById(R.id.dark_mode_layout);
+
         toolbar = findViewById(R.id.settings_activity_toolbar);
         toolbar.setTitle("Settings");
         toolbar.setTitleTextColor(Color.WHITE);
-        final Drawable upArrow = ContextCompat.getDrawable(this,R.drawable.ic_arrow_back_24dp);
+        final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24dp);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
@@ -59,6 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             btn_toggle.setChecked(false);
         }
+
         btn_toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +71,22 @@ public class SettingsActivity extends AppCompatActivity {
                     editor.putBoolean("isDarkModeOn", false);
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor.putBoolean("isDarkModeOn", true);
+                }
+                editor.apply();
+            }
+        });
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isDarkModeOn) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    btn_toggle.setChecked(false);
+                    editor.putBoolean("isDarkModeOn", false);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    btn_toggle.setChecked(true);
                     editor.putBoolean("isDarkModeOn", true);
                 }
                 editor.apply();
@@ -136,9 +156,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        Log.i("On back pressed", "not working");
-        super.onBackPressed();
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

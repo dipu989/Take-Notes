@@ -15,4 +15,6 @@
     <color name="iconColor">#FFFFFF</color>
     <color name="new_and_display_bg">#121212</color>
     <color name="noteFragmentColor">#121212</color>
+    <color name="settingsHeadingColor">#FFFFFF</color>
+    <color name="settingsSubHeadingColor">#FFFFFF</color>
 </resources>

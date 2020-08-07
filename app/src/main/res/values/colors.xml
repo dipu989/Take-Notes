@@ -16,4 +16,6 @@
     <color name="new_and_display_bg">#FFFFFF</color>
     <color name="noteFragmentColor">#FFFFFF</color>
     <color name="alertDialogBtnColor">#28A1F7</color>
+    <color name="settingsHeadingColor">#0f0f0e</color>
+    <color name="settingsSubHeadingColor">#141413</color>
 </resources>

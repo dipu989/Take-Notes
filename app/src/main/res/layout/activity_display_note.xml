@@ -26,7 +26,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/edit_note_toolbar"
         android:orientation="vertical"
-        android:layout_margin="@dimen/layout_margin_medium"
+        android:layout_margin="@dimen/layout_margin_large"
         android:backgroundTint="@color/new_and_display_bg">
 
         <TextView
@@ -55,6 +55,7 @@
         android:layout_marginTop="10dp"
         android:gravity="top|left"
         android:background="@null"
+        android:textSize="18dp"
         android:textCursorDrawable="@drawable/color_cursor"
         ></EditText>
 
