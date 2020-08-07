@@ -40,19 +40,20 @@
         android:id="@+id/display_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title Here"
         android:layout_marginTop="10dp"
         android:background="@null"
+        android:textSize="20dp"
+        android:textStyle="bold"
         android:textCursorDrawable="@drawable/color_cursor">
     </EditText>
 
     <EditText
         android:id="@+id/display_body"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/display_title"
         android:layout_marginTop="10dp"
-        android:text="Body"
+        android:gravity="top|left"
         android:background="@null"
         android:textCursorDrawable="@drawable/color_cursor"
         ></EditText>

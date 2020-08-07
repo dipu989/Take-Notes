@@ -3,9 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
    <item android:id="@+id/search_menu_toolbar"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/ic_search_white_24"
         android:title="Keyword"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView"/>
+
+   <item android:id="@+id/restore_menu_toolbar"
+       android:title="Restore Notes"
+       app:showAsAction="collapseActionView">
+   </item>
+
+   <item android:id="@+id/settings_menu_toolbar"
+       android:title="Settings"
+      app:showAsAction="collapseActionView">
+   </item>
 
 </menu>

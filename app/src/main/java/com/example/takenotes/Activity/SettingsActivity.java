@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +22,6 @@ import com.example.takenotes.R;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -36,7 +37,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.settings_activity_toolbar);
         toolbar.setTitle("Settings");
+        toolbar.setTitleTextColor(Color.WHITE);
+        final Drawable upArrow = ContextCompat.getDrawable(this,R.drawable.ic_arrow_back_24dp);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         window = SettingsActivity.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

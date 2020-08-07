@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +56,11 @@ public class DisplayNoteActivity extends AppCompatActivity {
         displayBody = findViewById(R.id.display_body);
         displayId = findViewById(R.id.display_id);
         toolbar = findViewById(R.id.edit_note_toolbar);
+        toolbar.setTitle("Note");
+        toolbar.setTitleTextColor(Color.WHITE);
+        final Drawable upArrow = ContextCompat.getDrawable(this,R.drawable.ic_arrow_back_24dp);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         window = DisplayNoteActivity.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -78,10 +85,12 @@ public class DisplayNoteActivity extends AppCompatActivity {
         File file = new File(fileDirectory);
         if (file != null) {
             File[] list = file.listFiles();
-            for (File files : list) {
-                files.delete();
-                //    Log.i("File deleted is ",files.getName());
-            }
+                Log.d(" ","Length of list is " + list.length);
+                for (File files : list) {
+                    files.delete();
+                    //    Log.i("File deleted is ",files.getName());
+                }
+
         } else {
             //   Log.i("Files were ","not deleted!");
         }
@@ -99,9 +108,23 @@ public class DisplayNoteActivity extends AppCompatActivity {
     }
 
     public void setData(String id, String title, String body) {
-        displayId.setText(id);
-        displayTitle.setText(title);
-        displayBody.setText(body);
+
+        if(title.matches("") && !body.matches("")){
+            displayTitle.setHint("Title");
+           // displayTitle.setHintTextColor();
+            displayBody.setText(body);
+        }
+        else if(body.matches("") && !title.matches("")){
+            displayBody.setHint("Note");
+            displayTitle.setText(title);
+        }
+        else{
+            displayBody.setText(body);
+            displayTitle.setText(title);
+            displayId.setText(id);
+        }
+
+
     }
 
     @Override
@@ -112,23 +135,23 @@ public class DisplayNoteActivity extends AppCompatActivity {
 
     public void editNote(View view) {
 
-        String id = displayId.getText().toString();
-        String title = displayTitle.getText().toString().trim();
-        String body = displayBody.getText().toString().trim();
+            String id = displayId.getText().toString();
+            String title = displayTitle.getText().toString().trim();
+            String body = displayBody.getText().toString().trim();
 
-        boolean isUpdated = myDb.update(id, title, body);
+            boolean isUpdated = myDb.update(id, title, body);
 
-        if (isUpdated == true) {
-            Toast.makeText(this, "Edited!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+            if (isUpdated == true) {
+                Toast.makeText(this, "Edited!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+            }
+
         }
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

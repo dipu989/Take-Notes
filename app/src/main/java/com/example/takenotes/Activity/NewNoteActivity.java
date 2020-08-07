@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
@@ -69,8 +70,12 @@ public class NewNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_note);
         ButterKnife.bind(this);
 
-        toolbar = (Toolbar) findViewById(R.id.new_note_toolbar);
+        toolbar = findViewById(R.id.new_note_toolbar);
+        toolbar.setTitle("Create Note");
+        toolbar.setTitleTextColor(Color.WHITE);
+        final Drawable upArrow = ContextCompat.getDrawable(this,R.drawable.ic_arrow_back_24dp);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         window = NewNoteActivity.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
