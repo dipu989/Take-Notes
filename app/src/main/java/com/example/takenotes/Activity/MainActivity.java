@@ -100,6 +100,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(!file.exists()){
             file.mkdir();
         }
+
+        String backupDir = this.getExternalFilesDir(null).getAbsolutePath() + "/backup";
+        File file1 = new File(backupDir);
+        if(!file1.exists()){
+            file1.mkdir();
+        }
     }
 
     public void addNote(View view) {
