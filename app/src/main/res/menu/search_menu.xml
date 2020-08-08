@@ -5,8 +5,10 @@
    <item android:id="@+id/search_menu_toolbar"
         android:icon="@drawable/ic_search_white_24"
         android:title="Keyword"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView">
+   </item>
+        <!--app:showAsAction="ifRoom|collapseActionView"-->/>
 
    <item android:id="@+id/restore_menu_toolbar"
        android:title="Restore Notes"
