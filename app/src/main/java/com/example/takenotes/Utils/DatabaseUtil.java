@@ -134,7 +134,7 @@ public class DatabaseUtil extends SQLiteOpenHelper {
         contentValues.put("TITLE",title);
         contentValues.put("BODY",body);
         db.update(TABLE_NAME,contentValues,strFilter,null);
-        db.close();
+       // db.close();
         return true;
     }
 

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -27,7 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +56,7 @@ public class DisplayNoteActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.edit_note_toolbar);
         toolbar.setTitle("Note");
         toolbar.setTitleTextColor(Color.WHITE);
-        final Drawable upArrow = ContextCompat.getDrawable(this,R.drawable.ic_arrow_back_24dp);
+        final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24dp);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
@@ -71,28 +69,30 @@ public class DisplayNoteActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getIntentData();
-        initDirectory();
         clearFiles();
     }
 
-    public void initDirectory() {
-
-    }
-
     public void clearFiles() {
-        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
-        // Log.i("Clear files method ",fileDirectory);
-        File file = new File(fileDirectory);
-        if (file != null) {
-            File[] list = file.listFiles();
-                Log.d(" ","Length of list is " + list.length);
-                for (File files : list) {
-                    files.delete();
-                    //    Log.i("File deleted is ",files.getName());
-                }
 
-        } else {
-            //   Log.i("Files were ","not deleted!");
+        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
+        File file = new File(fileDirectory);
+        file.mkdir();
+        Log.i("File's path is ", file.getPath());
+
+        if (file.exists()) {
+            File[] list = file.listFiles();
+
+            if (list == null) {
+                //  Log.i("List is ", "null");
+            } else if (list.length == 0) {
+                //  Log.i("Directory is ","empty");
+            } else {
+                for (File individualFiles : list) {
+                    // Log.i("File deleted is ",individualFiles.getName());
+                    individualFiles.delete();
+                }
+            }
+
         }
 
     }
@@ -109,16 +109,14 @@ public class DisplayNoteActivity extends AppCompatActivity {
 
     public void setData(String id, String title, String body) {
 
-        if(title.matches("") && !body.matches("")){
+        if (title.matches("") && !body.matches("")) {
             displayTitle.setHint("Title");
-           // displayTitle.setHintTextColor();
+            // displayTitle.setHintTextColor();
             displayBody.setText(body);
-        }
-        else if(body.matches("") && !title.matches("")){
+        } else if (body.matches("") && !title.matches("")) {
             displayBody.setHint("Note");
             displayTitle.setText(title);
-        }
-        else{
+        } else {
             displayBody.setText(body);
             displayTitle.setText(title);
             displayId.setText(id);
@@ -135,23 +133,23 @@ public class DisplayNoteActivity extends AppCompatActivity {
 
     public void editNote(View view) {
 
-            String id = displayId.getText().toString();
-            String title = displayTitle.getText().toString().trim();
-            String body = displayBody.getText().toString().trim();
+        String id = displayId.getText().toString();
+        String title = displayTitle.getText().toString().trim();
+        String body = displayBody.getText().toString().trim();
 
-            boolean isUpdated = myDb.update(id, title, body);
+        boolean isUpdated = myDb.update(id, title, body);
 
-            if (isUpdated == true) {
-                Toast.makeText(this, "Edited!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
-            }
-
+        if (isUpdated == true) {
+            Toast.makeText(this, "Edited!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
         }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -90,6 +90,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new NotesFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_notes);
         }
+        initDirectory();
+    }
+
+    public void initDirectory() {
+        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
+        // Log.i("Clear files method ",fileDirectory);
+        File file = new File(fileDirectory);
+        if(!file.exists()){
+            file.mkdir();
+        }
     }
 
     public void addNote(View view) {
