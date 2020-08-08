@@ -1,5 +1,7 @@
 package com.example.takenotes.Fragment;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -112,6 +114,13 @@ public class NotesFragment extends Fragment implements SearchView.OnQueryTextLis
 
         menu.clear();
         inflater.inflate(R.menu.search_menu, menu);
+
+//        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView = (SearchView) menu.findItem(R.id.search_menu_toolbar).getActionView();
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+//        searchView.setQueryHint("Search your notes");
+//        super.onCreateOptionsMenu(menu,inflater);
+
 
         MenuItem searchItem = menu.findItem(R.id.search_menu_toolbar);
         MenuItemCompat.setShowAsAction(searchItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS | MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
