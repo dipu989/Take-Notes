@@ -111,17 +111,17 @@ public class DisplayNoteActivity extends AppCompatActivity {
 
         if (title.matches("") && !body.matches("")) {
             displayTitle.setHint("Title");
-            // displayTitle.setHintTextColor();
             displayBody.setText(body);
+            displayId.setText(id);
         } else if (body.matches("") && !title.matches("")) {
             displayBody.setHint("Note");
             displayTitle.setText(title);
+            displayId.setText(id);
         } else {
             displayBody.setText(body);
             displayTitle.setText(title);
             displayId.setText(id);
         }
-
 
     }
 
