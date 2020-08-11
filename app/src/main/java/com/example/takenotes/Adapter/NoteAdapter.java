@@ -3,7 +3,6 @@ package com.example.takenotes.Adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,11 +25,10 @@ import com.example.takenotes.Activity.DisplayNoteActivity;
 import com.example.takenotes.Model.Note;
 import com.example.takenotes.R;
 import com.example.takenotes.Utils.DatabaseUtil;
+import com.google.android.material.checkbox.MaterialCheckBox;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
@@ -60,7 +58,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         Note note = noteList.get(position);
         if (selectedNotes.contains(note)) {
-            holder.itemView.setAlpha(0.3f);
+            holder.itemView.findViewById(R.id.cardLayout).setAlpha(0.3f);
         } else {
             holder.itemView.setAlpha(1.0f);
         }
@@ -108,10 +106,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     private void selectItem(NoteViewHolder holder, Note note) {
         if (selectedNotes.contains(note)) {
             selectedNotes.remove(note);
-            holder.itemView.findViewById(R.id.cardLayout).setAlpha(1.0f);
+            //holder.itemView.setAlpha(1.0f);
+           // holder.borderLinearLayout.setAlpha(1.0f);
+            holder.checkBox.setVisibility(View.GONE);
+            holder.checkBox.setChecked(false);
         } else if (!selectedNotes.contains(note)) {
             selectedNotes.add(note);
-            holder.itemView.findViewById(R.id.cardLayout).setAlpha(0.3f);
+           // holder.itemView.findViewById(R.id.cardLayout).setAlpha(0.3f);
+           // holder.borderLinearLayout.setVisibility(View.VISIBLE);
+            holder.checkBox.setVisibility(View.VISIBLE);
+            holder.checkBox.setChecked(true);
         } else if (selectedNotes.size() == 0 && multiSelect == true) {
             displayNotes(holder);
         }
@@ -183,19 +187,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     };
 
     public void unselectData(NoteViewHolder holder) {
-        holder.itemView.findViewById(R.id.cardLayout).setAlpha(1.0f);
+        holder.itemView.findViewById(R.id.note_selector_checkBox).setVisibility(View.GONE);
     }
 
     public class NoteViewHolder extends RecyclerView.ViewHolder {
 
         TextView id, title, body;
-
+        MaterialCheckBox checkBox;
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
 
             id = itemView.findViewById(R.id.rvnoteId);
             title = itemView.findViewById(R.id.rvnoteTitle);
             body = itemView.findViewById(R.id.rvnoteText);
+            checkBox = itemView.findViewById(R.id.note_selector_checkBox);
         }
     }
 

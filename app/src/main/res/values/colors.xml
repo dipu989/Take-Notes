@@ -18,4 +18,5 @@
     <color name="alertDialogBtnColor">#28A1F7</color>
     <color name="settingsHeadingColor">#0f0f0e</color>
     <color name="settingsSubHeadingColor">#141413</color>
+    <color name="check_box_color">#E80000</color>
 </resources>
