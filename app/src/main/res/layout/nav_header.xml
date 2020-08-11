@@ -21,11 +21,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
+        android:paddingTop="@dimen/padding_large"
         android:layout_marginLeft="24dp"
         android:text="Take Notes"
         android:gravity="center"
-        android:textSize="18dp"
+        android:textSize="@dimen/text_size_medium"
         android:textColor="@color/black"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         />

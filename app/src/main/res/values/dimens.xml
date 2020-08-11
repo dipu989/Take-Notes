@@ -4,8 +4,21 @@
     <dimen name="layout_margin_medium">10dp</dimen>
     <dimen name="layout_margin_small">8dp</dimen>
     <dimen name="layout_margin_large">12dp</dimen>
+    <dimen name="layout_margin_floatingBtn">16dp</dimen>
 
-    <!-- Card Elevations -->
+    <!-- Card elevations -->
     <dimen name="note_card_elevation">3dp</dimen>
     <dimen name="toolbar_elevation">5dp</dimen>
+
+    <!-- Text size -->
+    <dimen name="text_size_extraSmall">14dp</dimen>
+    <dimen name="text_size_small">16dp</dimen>
+    <dimen name="text_size_medium">18dp</dimen>
+    <dimen name="text_size_large">20dp</dimen>
+
+    <!-- Padding size -->
+    <dimen name="padding_small">3dp</dimen>
+    <dimen name="padding_medium">5dp</dimen>
+    <dimen name="padding_large">8dp</dimen>
+
 </resources>
