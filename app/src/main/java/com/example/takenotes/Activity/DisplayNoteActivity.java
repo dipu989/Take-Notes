@@ -32,9 +32,17 @@ import android.widget.Toast;
 
 import com.example.takenotes.R;
 import com.example.takenotes.Utils.DatabaseUtil;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 public class DisplayNoteActivity extends AppCompatActivity {
@@ -88,7 +96,7 @@ public class DisplayNoteActivity extends AppCompatActivity {
                 //  Log.i("Directory is ","empty");
             } else {
                 for (File individualFiles : list) {
-                    // Log.i("File deleted is ",individualFiles.getName());
+                     Log.i("File deleted is ",individualFiles.getName());
                     individualFiles.delete();
                 }
             }
@@ -171,72 +179,64 @@ public class DisplayNoteActivity extends AppCompatActivity {
 
     public void shareNote() {
 
-        PdfDocument pdfDocument = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(250, 400, 1).create();
-        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-
-        Canvas canvas = page.getCanvas();
-        Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
-        TextPaint textPaint = new TextPaint();
-        textPaint.setAntiAlias(true);
-        textPaint.setTextSize(4 * getResources().getDisplayMetrics().density);
-        textPaint.setColor(Color.BLACK);
-
-        StaticLayout staticLayout = StaticLayout.Builder.obtain(displayBody.getText().toString(), 0, displayBody.getText().toString().length(), textPaint, 240)
-                .setAlignment(Layout.Alignment.ALIGN_NORMAL)
-                .setEllipsize(TextUtils.TruncateAt.END)
-                .setTextDirection(TextDirectionHeuristics.LTR)
-                .build();
-        staticLayout.draw(canvas);
-
-        pdfDocument.finishPage(page);
-        sharePdf(pdfDocument);
-    }
-
-    public void sharePdf(PdfDocument pdfDocument) {
-
-        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
-        File file = new File(fileDirectory);
-        if (!file.exists()) {
-            file.mkdir();
-        }
-
-        String targetPdf = fileDirectory + displayTitle.getText().toString().trim().replace(" ", "_") + ".pdf";
-
-        File filePath = new File(targetPdf);
-        // Log.i("File path path is",filePath.getPath());
-        File share_file = new File(fileDirectory, displayTitle.getText().toString().replace(" ", "_") + ".pdf");
-        //  Log.i("share file name is ",share_file.getPath());
-        if (file.exists()) {
-            Log.i("File path existing at ", filePath.getPath());
-            filePath.renameTo(share_file);
-            Log.i("File path after rename ", filePath.getName());
-        } else {
-            Log.i("File path is ", filePath.getPath());
-        }
-
+        String docName = displayTitle.getText().toString().trim().replace(" ", "_");
+        Document document;
         try {
-            pdfDocument.writeTo(new FileOutputStream(share_file));
-        } catch (Exception e) {
+            String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
+            File file = new File(fileDirectory);
+            if (!file.exists()) {
+                file.mkdir();
+            }
+            
+            if(displayTitle.getText().toString().matches("")){
+                docName = "Untitled";
+            }
+
+            String targetPdf = fileDirectory + docName + ".pdf";
+
+            File filePath = new File(targetPdf);
+            // Log.i("File path path is",filePath.getPath());
+            File share_file = new File(fileDirectory, displayTitle.getText().toString().replace(" ", "_") + ".pdf");
+            //  Log.i("share file name is ",share_file.getPath());
+            if (file.exists()) {
+            //    Log.i("File path existing at ", filePath.getPath());
+                filePath.renameTo(share_file);
+             //   Log.i("File path after rename ", filePath.getName());
+            } else {
+             //   Log.i("File path is ", filePath.getPath());
+            }
+            filePath.delete();
+
+            OutputStream outputStream = new FileOutputStream(share_file);
+
+            document = new Document();
+            PdfWriter.getInstance(document, outputStream);
+            document.open();
+            document.add(new Paragraph(displayTitle.getText().toString()));
+            document.add(new Paragraph(displayBody.getText().toString()));
+           // Toast.makeText(this, "File written", Toast.LENGTH_SHORT).show();
+            document.close();
+
+            Intent docPdf = new Intent(Intent.ACTION_SEND);
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+
+            Uri uri = Uri.parse(share_file.getAbsolutePath());
+            docPdf.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            docPdf.setType("application/pdf");
+            docPdf.putExtra(Intent.EXTRA_STREAM,uri);
+
+            docPdf.putExtra(Intent.EXTRA_TEXT, "");
+            setPermission(docPdf, uri);
+            startActivity(Intent.createChooser(docPdf, "Share File"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
             e.printStackTrace();
         }
-        pdfDocument.close();
 
-        Intent intentShareFile = new Intent(Intent.ACTION_SEND);
-
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
-
-        intentShareFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        Uri uri = Uri.fromFile(share_file);
-        intentShareFile.setType("application/pdf");
-        intentShareFile.putExtra(Intent.EXTRA_STREAM, uri);
-        intentShareFile.putExtra(Intent.EXTRA_TEXT, "");
-        setPermission(intentShareFile, uri);
-        startActivity(Intent.createChooser(intentShareFile, "Share File"));
     }
-
 
     private void setPermission(Intent resultIntent, Uri fileUri) {
         List<ResolveInfo> resInfoList = getApplicationContext().getPackageManager().queryIntentActivities(resultIntent, PackageManager.MATCH_DEFAULT_ONLY);
