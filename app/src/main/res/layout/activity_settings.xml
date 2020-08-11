@@ -118,7 +118,8 @@
         android:padding="@dimen/padding_small"
         android:clickable="true"
         android:focusable="true"
-        android:background="?attr/selectableItemBackground">
+        android:background="?attr/selectableItemBackground"
+        android:onClick="loadOnlineBackup">
 
         <TextView
             android:layout_width="wrap_content"

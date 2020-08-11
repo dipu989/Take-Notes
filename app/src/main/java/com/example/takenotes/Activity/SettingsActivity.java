@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,11 +19,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.example.takenotes.R;
+import com.example.takenotes.Utils.DatabaseUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
+import java.nio.channels.FileChannel;;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -30,11 +32,14 @@ public class SettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Window window;
     private RelativeLayout relativeLayout;
+    private DatabaseUtil myDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        myDb = new DatabaseUtil(this);
 
         relativeLayout = findViewById(R.id.dark_mode_layout);
 
@@ -96,39 +101,43 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void createOfflineBackup(View view) {
 
-        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/backup";
-        //Log.i("File directory is ", fileDirectory);
+        if(myDb.getAllNotes().isEmpty()){
+            Toast.makeText(this,"Create a note first",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/backup";
+            //Log.i("File directory is ", fileDirectory);
 
-        String copyDBPath = "note_backup.db";
+            String copyDBPath = "note_backup.db";
 
-        final String realDatabase = this.getDatabasePath("student.db").toString();
-        //Log.i("Database Location is ", realDatabase);
+            final String realDatabase = this.getDatabasePath("student.db").toString();
+            //Log.i("Database Location is ", realDatabase);
 
-        try {
-            File currentDB = new File(realDatabase);
-            File copyDB = new File(fileDirectory, copyDBPath);
-            if (currentDB.exists()) {
-                if (copyDB.exists()) {
-                    copyDB.delete();
+            try {
+                File currentDB = new File(realDatabase);
+                File copyDB = new File(fileDirectory, copyDBPath);
+                if (currentDB.exists()) {
+                    if (copyDB.exists()) {
+                        copyDB.delete();
+                    }
+                    @SuppressWarnings("resource")
+                    FileChannel src = new FileInputStream(currentDB).getChannel();
+                    @SuppressWarnings("resource")
+                    FileChannel dst = new FileOutputStream(copyDB).getChannel();
+                    dst.transferFrom(src, 0, src.size());
+                    Toast.makeText(this, "Backup Created", Toast.LENGTH_SHORT).show();
+                    src.close();
+                    dst.close();
                 }
-                @SuppressWarnings("resource")
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                @SuppressWarnings("resource")
-                FileChannel dst = new FileOutputStream(copyDB).getChannel();
-                dst.transferFrom(src, 0, src.size());
-                Toast.makeText(this, "Backup Created", Toast.LENGTH_SHORT).show();
-                src.close();
-                dst.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     public void loadOfflineData(View view) {
         String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/backup";
         // Log.i("File directory is ", fileDirectory);
-
         final String endLocation = this.getDatabasePath("student.db").toString();
         // Log.i("Database Location is ", endLocation);
 
@@ -150,9 +159,16 @@ public class SettingsActivity extends AppCompatActivity {
                 src.close();
                 dst.close();
             }
+            else{
+                Toast.makeText(this, "No backup found", Toast.LENGTH_SHORT).show();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void loadOnlineBackup(View view){
+        Toast.makeText(this,"Coming soon...",Toast.LENGTH_SHORT).show();
     }
 
     @Override
