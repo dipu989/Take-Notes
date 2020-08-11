@@ -10,5 +10,18 @@
     <string name="empty_note">Empty Note Discarded</string>
     <string name="note_add_success">Note added</string>
     <string name="note_add_failed">Failed</string>
+
+    <!-- Activity Title -->
+    <string name="home_page_title">All Notes</string>
+
+    <!-- Directory Paths -->
+    <string name="share_directory">/share</string>
+    <string name="backup_directory">/backup</string>
+
+
+    <!-- Toast Messages -->
+    <string name="app_exit_toast">Double tap to exit</string>
+    <string name="under_development_toast">Under Development</string>
+
     
 </resources>

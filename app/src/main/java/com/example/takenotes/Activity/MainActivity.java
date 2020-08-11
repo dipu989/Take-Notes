@@ -3,7 +3,6 @@ package com.example.takenotes.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -12,7 +11,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -21,10 +19,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.takenotes.Fragment.NotesFragment;
-import com.example.takenotes.Fragment.SettingsFragment;
-import com.example.takenotes.Fragment.TrashFragment;
 import com.example.takenotes.R;
-import com.example.takenotes.Utils.PDFUtil;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -62,12 +57,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null) {
-            getSupportActionBar().setTitle("All Notes");
+            getSupportActionBar().setTitle(getResources().getString(R.string.home_page_title));
         }
         drawerLayout = findViewById(R.id.drawer_layout);
         newNote = findViewById(R.id.new_note);
        // toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
-        toolbar.setTitle("All Notes");
+        toolbar.setTitle(getResources().getString(R.string.home_page_title));
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -94,14 +89,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void initDirectory() {
-        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
+        String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + getResources().getString(R.string.share_directory);
         // Log.i("Clear files method ",fileDirectory);
         File file = new File(fileDirectory);
         if(!file.exists()){
             file.mkdir();
         }
 
-        String backupDir = this.getExternalFilesDir(null).getAbsolutePath() + "/backup";
+        String backupDir = this.getExternalFilesDir(null).getAbsolutePath() + getResources().getString(R.string.backup_directory);
         File file1 = new File(backupDir);
         if(!file1.exists()){
             file1.mkdir();
@@ -121,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (back_pressed + 2000 > System.currentTimeMillis())
             super.onBackPressed();
         else {
-            Toast toast = Toast.makeText(getApplicationContext(), "Double tap to exit", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.app_exit_toast), Toast.LENGTH_SHORT);
             toast.show();
             back_pressed = System.currentTimeMillis();
         }
@@ -139,10 +134,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
                 break;
             case R.id.nav_rateUs:
-                Toast.makeText(this, "Under Dev", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.under_development_toast), Toast.LENGTH_SHORT).show();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

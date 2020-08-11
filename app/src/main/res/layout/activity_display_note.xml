@@ -40,9 +40,9 @@
         android:id="@+id/display_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/layout_margin_medium"
         android:background="@null"
-        android:textSize="20dp"
+        android:textSize="@dimen/text_size_large"
         android:textStyle="bold"
         android:textCursorDrawable="@drawable/color_cursor">
     </EditText>
@@ -52,10 +52,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/display_title"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/layout_margin_medium"
         android:gravity="top|left"
         android:background="@null"
-        android:textSize="18dp"
+        android:textSize="@dimen/text_size_medium"
         android:textCursorDrawable="@drawable/color_cursor"
         ></EditText>
 
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/layout_margin_floatingBtn"
         android:onClick="editNote"
         android:src="@drawable/ic_edit_white_24dp"
         app:backgroundTint="@color/buttonColor"></com.google.android.material.floatingactionbutton.FloatingActionButton>

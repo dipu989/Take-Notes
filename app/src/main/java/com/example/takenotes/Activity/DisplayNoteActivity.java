@@ -7,19 +7,11 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.text.Layout;
-import android.text.StaticLayout;
-import android.text.TextDirectionHeuristics;
-import android.text.TextPaint;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,10 +24,8 @@ import android.widget.Toast;
 
 import com.example.takenotes.R;
 import com.example.takenotes.Utils.DatabaseUtil;
-import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -85,7 +75,7 @@ public class DisplayNoteActivity extends AppCompatActivity {
         String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
         File file = new File(fileDirectory);
         file.mkdir();
-        Log.i("File's path is ", file.getPath());
+       // Log.i("File's path is ", file.getPath());
 
         if (file.exists()) {
             File[] list = file.listFiles();

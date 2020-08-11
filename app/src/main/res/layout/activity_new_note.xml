@@ -27,7 +27,6 @@
         android:layout_below="@id/new_note_toolbar"
         android:layout_margin="@dimen/layout_margin_large"
         android:orientation="vertical"
-        android:elevation="0dp"
         android:backgroundTint="@color/new_and_display_bg"
         >
 
@@ -35,12 +34,12 @@
             android:id="@+id/note_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/layout_margin_medium"
             android:background="@null"
             android:hint="Title"
             android:textColor="@color/textColor"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="20dp"
+            android:textSize="@dimen/text_size_large"
             android:textStyle="bold"></EditText>
 
         <EditText
@@ -48,8 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/note_title"
-            android:layout_marginTop="10dp"
-            android:textSize="18dp"
+            android:layout_marginTop="@dimen/layout_margin_medium"
+            android:textSize="@dimen/text_size_medium"
             android:background="@null"
             android:textColor="@color/textColor"
             android:hint="Note here..."
@@ -105,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/layout_margin_floatingBtn"
         android:onClick="saveNote"
         android:src="@drawable/ic_check_white_24dp"
         app:backgroundTint="@color/buttonColor"></com.google.android.material.floatingactionbutton.FloatingActionButton>
