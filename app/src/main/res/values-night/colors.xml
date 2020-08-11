@@ -17,4 +17,5 @@
     <color name="noteFragmentColor">#121212</color>
     <color name="settingsHeadingColor">#FFFFFF</color>
     <color name="settingsSubHeadingColor">#FFFFFF</color>
+    <color name="check_box_color">#FFFFFF</color>
 </resources>

@@ -20,9 +20,10 @@
         android:background="@color/noteLayoutColor">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear_layout_border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="@dimen/padding_large">
 
             <TextView
@@ -32,6 +33,18 @@
                 android:visibility="gone">
             </TextView>
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/note_selector_checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:buttonTint="@color/check_box_color">
+            </com.google.android.material.checkbox.MaterialCheckBox>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <TextView
                 android:id="@+id/rvnoteTitle"
                 android:layout_width="wrap_content"
@@ -54,6 +67,7 @@
                 android:textSize="@dimen/text_size_extraSmall">
                 app:layout_constraintTop_toBottomOf="@+id/rvnoteTitle">
             </TextView>
+            </LinearLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
