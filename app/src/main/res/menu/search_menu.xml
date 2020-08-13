@@ -8,7 +8,6 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView">
    </item>
-        <!--app:showAsAction="ifRoom|collapseActionView"-->/>
 
    <item android:id="@+id/restore_menu_toolbar"
        android:title="Restore Notes"

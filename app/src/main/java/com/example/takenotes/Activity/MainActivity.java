@@ -3,14 +3,17 @@ package com.example.takenotes.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button newNote;
     private Toolbar toolbar;
     private Window window;
+    NavigationView navigationView;
 
     @Override
     protected void onPostResume() {
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         newNote = findViewById(R.id.new_note);
        // toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
         toolbar.setTitle(getResources().getString(R.string.home_page_title));
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         window = MainActivity.this.getWindow();
@@ -86,6 +90,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.nav_notes);
         }
         initDirectory();
+        isDarkModeOn();
+    }
+
+    private void isDarkModeOn(){
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs",MODE_PRIVATE);
+        final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn",false);
+        if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     public void initDirectory() {
@@ -142,4 +157,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+       // Log.i("On Resume called ","here");
+        navigationView.setCheckedItem(R.id.nav_notes);
+    }
 }

@@ -169,7 +169,9 @@ public class DisplayNoteActivity extends AppCompatActivity {
 
     public void shareNote() {
 
-        String docName = displayTitle.getText().toString().trim().replace(" ", "_");
+        String title = displayTitle.getText().toString();
+        String body = displayBody.getText().toString();
+        String docName = title.trim().replace(" ", "_");
         Document document;
         try {
             String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
@@ -202,8 +204,8 @@ public class DisplayNoteActivity extends AppCompatActivity {
             document = new Document();
             PdfWriter.getInstance(document, outputStream);
             document.open();
-            document.add(new Paragraph(displayTitle.getText().toString()));
-            document.add(new Paragraph(displayBody.getText().toString()));
+            document.add(new Paragraph(title));
+            document.add(new Paragraph(body));
            // Toast.makeText(this, "File written", Toast.LENGTH_SHORT).show();
             document.close();
 
