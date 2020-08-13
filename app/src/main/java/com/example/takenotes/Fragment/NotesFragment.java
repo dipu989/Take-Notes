@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.takenotes.Activity.SettingsActivity;
@@ -50,6 +51,7 @@ public class NotesFragment extends Fragment { //implements SearchView.OnQueryTex
 
     private RecyclerView.Adapter adapter;
     private List<Note> notes;
+    TextView noNotesView;
     androidx.appcompat.widget.Toolbar toolbar;
     RecyclerView recyclerView;
     private View rootView;
@@ -92,6 +94,7 @@ public class NotesFragment extends Fragment { //implements SearchView.OnQueryTex
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_notes, container, false);
+        noNotesView = rootView.findViewById(R.id.no_notes_message);
 
         recyclerView = rootView.findViewById(R.id.recycler_view_notes);
         recyclerView.setHasFixedSize(true);
@@ -100,11 +103,16 @@ public class NotesFragment extends Fragment { //implements SearchView.OnQueryTex
         notes = db.getAllNotes();
         setHasOptionsMenu(true);
 
-        if (notes.size() != 0) {
+        if(notes.size() == 0) {
+            noNotesView.setVisibility(View.VISIBLE);
+            // adapter.notifyDataSetChanged();    // buggy line
+        }
+        else if (notes.size() != 0) {
             adapter = new NoteAdapter(rootView.getContext(), notes);
             adapter.notifyDataSetChanged();
             recyclerView.setAdapter(adapter);
         }
+
         return rootView;
     }
 
@@ -155,6 +163,15 @@ public class NotesFragment extends Fragment { //implements SearchView.OnQueryTex
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        //Log.i("On Resume called ","here");
+        if(notes.size() == 0){
+            noNotesView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.restore_menu_toolbar:
@@ -196,8 +213,10 @@ public class NotesFragment extends Fragment { //implements SearchView.OnQueryTex
                 fragmentTransaction.detach(this).attach(this).commit();
                 src.close();
                 dst.close();
+            }else{
+                Toast.makeText(getContext(), "No backup found", Toast.LENGTH_SHORT).show();
             }
-        } catch (Exception e) {
+    }catch (Exception e) {
             e.printStackTrace();
         }
     }

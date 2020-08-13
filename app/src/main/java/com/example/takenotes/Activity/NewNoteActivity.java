@@ -73,7 +73,7 @@ public class NewNoteActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.new_note_toolbar);
         toolbar.setTitle("Create Note");
         toolbar.setTitleTextColor(Color.WHITE);
-        final Drawable upArrow = ContextCompat.getDrawable(this,R.drawable.ic_arrow_back_24dp);
+        final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24dp);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
@@ -107,8 +107,8 @@ public class NewNoteActivity extends AppCompatActivity {
         String title = noteTitle.getText().toString();
         String body = noteBody.getText().toString();
 
-        if(title.matches("") && body.matches("")){
-            Toast.makeText(this,R.string.empty_note, Toast.LENGTH_SHORT).show();
+        if (title.matches("") && body.matches("")) {
+            Toast.makeText(this, R.string.empty_note, Toast.LENGTH_SHORT).show();
         } else {
             boolean isInserted = myDb.insertData(title.trim(), body.trim());
             if (isInserted == true) {
@@ -187,7 +187,7 @@ public class NewNoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.share_note:
                 shareNote();
                 return true;
@@ -199,60 +199,66 @@ public class NewNoteActivity extends AppCompatActivity {
 
     public void shareNote() {
 
-        Document document;
-        String docName = noteTitle.getText().toString().trim().replace(" ", "_");
-        try {
-            String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
-            File file = new File(fileDirectory);
-            if (!file.exists()) {
-                file.mkdir();
+        String title = noteTitle.getText().toString();
+        String body = noteBody.getText().toString();
+        if (title.matches("") && body.matches("")) {
+            Toast.makeText(this, "Can't share empty note", Toast.LENGTH_SHORT).show();
+        } else {
+            Document document;
+            String docName = title.trim().replace(" ", "_");
+            try {
+                String fileDirectory = this.getExternalFilesDir(null).getAbsolutePath() + "/share";
+                File file = new File(fileDirectory);
+                if (!file.exists()) {
+                    file.mkdir();
+                }
+                if (noteTitle.getText().toString().matches("")) {
+                    docName = "Untitled";
+                }
+
+                String targetPdf = fileDirectory + docName + ".pdf";
+
+                File filePath = new File(targetPdf);
+                // Log.i("File path path is",filePath.getPath());
+                File share_file = new File(fileDirectory, noteTitle.getText().toString().replace(" ", "_") + ".pdf");
+                //  Log.i("share file name is ",share_file.getPath());
+                if (file.exists()) {
+                    //    Log.i("File path existing at ", filePath.getPath());
+                    filePath.renameTo(share_file);
+                    //   Log.i("File path after rename ", filePath.getName());
+                } else {
+                    //   Log.i("File path is ", filePath.getPath());
+                }
+                filePath.delete();
+
+                OutputStream outputStream = new FileOutputStream(share_file);
+
+                document = new Document();
+                PdfWriter.getInstance(document, outputStream);
+                document.open();
+                document.add(new Paragraph(title));
+                document.add(new Paragraph(body));
+                // Toast.makeText(this, "File written", Toast.LENGTH_SHORT).show();
+                document.close();
+
+                Intent docPdf = new Intent(Intent.ACTION_SEND);
+                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                StrictMode.setVmPolicy(builder.build());
+
+                Uri uri = Uri.parse(share_file.getAbsolutePath());
+                docPdf.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                docPdf.setType("application/pdf");
+                docPdf.putExtra(Intent.EXTRA_STREAM, uri);
+
+                docPdf.putExtra(Intent.EXTRA_TEXT, "");
+                setPermission(docPdf, uri);
+                startActivity(Intent.createChooser(docPdf, "Share File"));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (DocumentException e) {
+                e.printStackTrace();
             }
-            if(noteTitle.getText().toString().matches("")){
-                docName = "Untitled";
-            }
-
-            String targetPdf = fileDirectory + docName + ".pdf";
-
-            File filePath = new File(targetPdf);
-            // Log.i("File path path is",filePath.getPath());
-            File share_file = new File(fileDirectory, noteTitle.getText().toString().replace(" ", "_") + ".pdf");
-            //  Log.i("share file name is ",share_file.getPath());
-            if (file.exists()) {
-                //    Log.i("File path existing at ", filePath.getPath());
-                filePath.renameTo(share_file);
-                //   Log.i("File path after rename ", filePath.getName());
-            } else {
-                //   Log.i("File path is ", filePath.getPath());
-            }
-            filePath.delete();
-
-            OutputStream outputStream = new FileOutputStream(share_file);
-
-            document = new Document();
-            PdfWriter.getInstance(document, outputStream);
-            document.open();
-            document.add(new Paragraph(noteTitle.getText().toString()));
-            document.add(new Paragraph(noteBody.getText().toString()));
-            // Toast.makeText(this, "File written", Toast.LENGTH_SHORT).show();
-            document.close();
-
-            Intent docPdf = new Intent(Intent.ACTION_SEND);
-            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.setVmPolicy(builder.build());
-
-            Uri uri = Uri.parse(share_file.getAbsolutePath());
-            docPdf.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            docPdf.setType("application/pdf");
-            docPdf.putExtra(Intent.EXTRA_STREAM,uri);
-
-            docPdf.putExtra(Intent.EXTRA_TEXT, "");
-            setPermission(docPdf, uri);
-            startActivity(Intent.createChooser(docPdf, "Share File"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            e.printStackTrace();
         }
 
     }

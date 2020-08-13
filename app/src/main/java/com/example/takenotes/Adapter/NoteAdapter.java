@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.takenotes.Activity.DisplayNoteActivity;
@@ -60,7 +62,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         if (selectedNotes.contains(note)) {
             holder.itemView.findViewById(R.id.cardLayout).setAlpha(0.3f);
         } else {
-            holder.itemView.setAlpha(1.0f);
+            holder.itemView.setAlpha(1.0f); 
         }
 
         holder.itemView.findViewById(R.id.cardLayout).setOnLongClickListener(new View.OnLongClickListener() {
@@ -157,6 +159,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                     public void onClick(DialogInterface dialog, int which) {
                         myDb.deleteRecord(selectedNotes);
                         noteList.removeAll(selectedNotes);
+                        if(noteList.size() == 0){
+                            Log.i("Note size got ","zero");
+
+                        }
                         notifyDataSetChanged();
                         Toast.makeText(context, "Notes Deleted", Toast.LENGTH_SHORT).show();
                         mode.finish();
@@ -194,6 +200,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         TextView id, title, body;
         MaterialCheckBox checkBox;
+        TextView noNotesView;
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -201,6 +208,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             title = itemView.findViewById(R.id.rvnoteTitle);
             body = itemView.findViewById(R.id.rvnoteText);
             checkBox = itemView.findViewById(R.id.note_selector_checkBox);
+            noNotesView = itemView.findViewById(R.id.no_notes_message);
         }
     }
 

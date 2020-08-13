@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:background="@color/colorAccent"
+    android:background="@drawable/nav_header_line"
     android:gravity="bottom"
     android:orientation="horizontal"
     android:padding="16dp"
@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/padding_large"
         android:layout_marginLeft="24dp"
-        android:text="Take Notes"
+        android:text="App Name"
         android:gravity="center"
         android:textSize="@dimen/text_size_medium"
-        android:textColor="@color/black"
+        android:textColor="@color/navigation_header_textColor"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         />
 </LinearLayout>
