@@ -43,7 +43,7 @@
         android:layout_marginTop="@dimen/layout_margin_medium"
         android:background="@null"
         android:textSize="@dimen/text_size_large"
-        android:textStyle="normal"
+        android:textStyle="bold"
         android:textCursorDrawable="@drawable/color_cursor">
     </EditText>
 

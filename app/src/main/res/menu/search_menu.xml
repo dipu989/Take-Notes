@@ -9,14 +9,14 @@
         app:showAsAction="ifRoom|collapseActionView">
    </item>
 
-   <!--  <item android:id="@+id/restore_menu_toolbar"
-         android:title="Restore Notes"
-         app:showAsAction="collapseActionView">
-     </item>
+   <item android:id="@+id/restore_menu_toolbar"
+       android:title="Restore Notes"
+       app:showAsAction="collapseActionView">
+   </item>
 
-     <item android:id="@+id/settings_menu_toolbar"
-         android:title="Settings"
-        app:showAsAction="collapseActionView">
-     </item> -->
+   <item android:id="@+id/settings_menu_toolbar"
+       android:title="Settings"
+      app:showAsAction="collapseActionView">
+   </item>
 
 </menu>

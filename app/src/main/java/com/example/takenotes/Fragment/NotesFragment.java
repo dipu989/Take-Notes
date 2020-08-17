@@ -171,25 +171,24 @@ public class NotesFragment extends Fragment { //implements SearchView.OnQueryTex
         }
     }
 
-    // To implement later
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.restore_menu_toolbar:
-//                loadOfflineData();
-//                break;
-//            case R.id.settings_menu_toolbar:
-//                Intent intent = new Intent(getContext(), SettingsActivity.class);
-//                startActivity(intent);
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.restore_menu_toolbar:
+                loadOfflineData();
+                break;
+            case R.id.settings_menu_toolbar:
+                Intent intent = new Intent(getContext(), SettingsActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public void loadOfflineData() {
         String fileDirectory = getContext().getExternalFilesDir(null).getAbsolutePath() + "/backup";
         // Log.i("File directory is ", fileDirectory);
 
-        final String endLocation = getContext().getDatabasePath("notes.db").toString();
+        final String endLocation = getContext().getDatabasePath("student.db").toString();
         // Log.i("Database Location is ", endLocation);
 
         try {
