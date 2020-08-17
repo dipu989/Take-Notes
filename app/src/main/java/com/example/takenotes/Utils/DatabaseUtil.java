@@ -19,8 +19,8 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class DatabaseUtil extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "notes.db";
-    public static final String TABLE_NAME = "notes_table";
+    public static final String DATABASE_NAME = "student.db";
+    public static final String TABLE_NAME = "student_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "TITLE";
     public static final String COL_3 = "BODY";
@@ -138,10 +138,11 @@ public class DatabaseUtil extends SQLiteOpenHelper {
         return true;
     }
 
-//    @Override
-//    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-//        db.execSQL("drop table if exists " + TABLE_NAME);
-//        onCreate(db);
-//    }
+    /*@Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+        db.execSQL("drop table if exists " + TABLE_NAME);
+        onCreate(db);
+    }
+     */
 
 }
