@@ -135,14 +135,18 @@ public class SettingsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2) {
 
-            Uri uri = data.getData();
-            Log.i("Uri may be null", "!");
+            Uri uri = null;
+            if (data != null) {
+                uri = data.getData();
+            } else {
+                Log.i("Data is null", "!");
+            }
 
             try {
                 String outputFileName = getDatabasePath("student.db").toString();
-         //       Log.i("OutputFileName will be ", outputFileName);
-         //       Log.i("Backup AP will be", dbFile.getAbsolutePath());
-         //       Log.i("Backup name will be", dbFile.getName());
+                //       Log.i("OutputFileName will be ", outputFileName);
+                //       Log.i("Backup AP will be", dbFile.getAbsolutePath());
+                //       Log.i("Backup name will be", dbFile.getName());
                 InputStream inputStream = getContentResolver().openInputStream(uri);
                 OutputStream outputStream = new FileOutputStream(outputFileName);
                 byte[] buffer = new byte[1024];
@@ -155,7 +159,9 @@ public class SettingsActivity extends AppCompatActivity {
                 inputStream.close();
                 Toast.makeText(this, "Backup Complete", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Toast.makeText(this, "Failed to load backup", Toast.LENGTH_SHORT).show();
+                if (uri != null) {
+                    Toast.makeText(this, "Failed to load backup", Toast.LENGTH_SHORT).show();
+                }
                 e.printStackTrace();
             }
         } else if (requestCode == 1) {
