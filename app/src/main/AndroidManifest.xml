@@ -3,6 +3,7 @@
     package="com.example.takenotes">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,15 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DisplayNoteActivity"
+        <activity
+            android:name=".Activity.DisplayNoteActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".Activity.TrashActivity" />
-        <activity android:name=".Activity.NewNoteActivity"
+        <activity
+            android:name=".Activity.NewNoteActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".Activity.SettingsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Activity.SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.SplashActivity" />
         <activity
             android:name=".Activity.MainActivity"
@@ -30,16 +34,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <provider
-            android:authorities="com.example.takenotes.provider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.takenotes.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths">
-            </meta-data>
+                android:resource="@xml/filepaths"></meta-data>
         </provider>
 
     </application>
