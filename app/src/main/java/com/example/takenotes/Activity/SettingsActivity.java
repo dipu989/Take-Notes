@@ -143,7 +143,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
 
             try {
-                String outputFileName = getDatabasePath("student.db").toString();
+                String outputFileName = getDatabasePath("notes.db").toString();
                 //       Log.i("OutputFileName will be ", outputFileName);
                 //       Log.i("Backup AP will be", dbFile.getAbsolutePath());
                 //       Log.i("Backup name will be", dbFile.getName());
@@ -166,7 +166,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         } else if (requestCode == 1) {
             try {
-                String databaseFilePath = getDatabasePath("student.db").toString();
+                String databaseFilePath = getDatabasePath("notes.db").toString();
                 File dbFile = new File(databaseFilePath);
 
                 /*   Perfectly working   */

@@ -40,7 +40,7 @@
             android:textColor="@color/textColor"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="@dimen/text_size_large"
-            android:textStyle="bold"></EditText>
+            android:textStyle="normal"></EditText>
 
         <EditText
             android:id="@+id/note_body"
