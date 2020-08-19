@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            android:text="Data will be saved in your device and can be restored"
+            android:text="Data will be saved in your device"
             android:textColor="@color/settingsSubHeadingColor"
             ></TextView>
     </LinearLayout>
@@ -104,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            android:text="Data from Offline backup will be restored (if any)"
+            android:text="Data from Offline backup will be restored"
             android:textColor="@color/settingsSubHeadingColor"
             ></TextView>
     </LinearLayout>
@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            android:text="Data will be saved on Google Cloud and can be restored. Storage limit 25 MB per app"
+            android:text="Data will be saved on Google Cloud"
             android:textColor="@color/settingsSubHeadingColor"
             ></TextView>
     </LinearLayout>
