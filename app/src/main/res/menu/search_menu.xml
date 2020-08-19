@@ -2,21 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-   <item android:id="@+id/search_menu_toolbar"
+    <item
+        android:id="@+id/search_menu_toolbar"
         android:icon="@drawable/ic_search_white_24"
         android:title="Keyword"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView">
-   </item>
+        app:showAsAction="ifRoom|collapseActionView"></item>
 
-   <item android:id="@+id/restore_menu_toolbar"
-       android:title="Restore Notes"
+    <!--
+    <item android:id="@+id/restore_menu_toolbar"
+        android:title="Restore Notes"
+        app:showAsAction="collapseActionView">
+    </item>
+
+    <item android:id="@+id/settings_menu_toolbar"
+        android:title="Settings"
        app:showAsAction="collapseActionView">
-   </item>
-
-   <item android:id="@+id/settings_menu_toolbar"
-       android:title="Settings"
-      app:showAsAction="collapseActionView">
-   </item>
-
+    </item>
+ -->
 </menu>

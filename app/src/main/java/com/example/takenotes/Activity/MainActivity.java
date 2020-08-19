@@ -76,11 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         window.setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.statusBarColor));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-     //   if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
             toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
-//        }else {
-//            toggle.getDrawerArrowDrawable().setColor(Color.BLACK);
-//        }
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
