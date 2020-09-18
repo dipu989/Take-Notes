@@ -1,6 +1,6 @@
 # Take-Notes
 
->>>>>>>>>>>>>>>>>>>![TakeNotesIcon](https://user-images.githubusercontent.com/31280303/93563047-c697a080-f9a4-11ea-8cd6-d7cb9b730a8c.jpg)
+![TakeNotesIcon](https://user-images.githubusercontent.com/31280303/93563047-c697a080-f9a4-11ea-8cd6-d7cb9b730a8c.jpg)
 ### About App
 Take Notes is an Android Application developed using Java following Material Design guidelines. It has the following features - 
 1) Users can create, read, edit, and delete notes.
